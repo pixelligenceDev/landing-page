@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixelligence - מערכת אבטחה מבוססת בינה מלאכותית</title>
+    <link rel="icon" href="./assets/logo.png" type="image/png">
+    <link rel="shortcut icon" href="./assets/logo.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8A2BE2; /* Purple */
+            --secondary-color: #00FFFF; /* Cyan */
+            --dark-purple: #4B0082;
+            --light-purple: #9370DB;
+            --light-cyan: #AFEEEE;
+            --dark-cyan: #008B8B;
+        }
+
+        body {
+            font-family: 'Rubik', 'Assistant', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f5f7fa 0%, #eef1f5 100%);
+            direction: rtl;
+            text-align: right;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Assistant', 'Rubik', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-color) 100%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary-color), var(--dark-purple));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(90deg, var(--secondary-color), var(--dark-cyan));
+            color: var(--dark-purple);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--light-purple) 0%, var(--primary-color) 100%);
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            position: relative;
+            color: #333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .slide-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .slide-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Timeline styles */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--light-purple);
+            top: 0;
+            bottom: 0;
+            right: 50%;
+            margin-right: -3px;
+            border-radius: 10px;
+        }
+
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            left: -13px;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--dark-cyan) 100%);
+            border: 4px solid white;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .right {
+            right: 0;
+        }
+
+        .left {
+            right: 50%;
+        }
+
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid white;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+
+        .left::after {
+            right: -12px;
+        }
+
+        .content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Testimonial carousel */
+        .testimonial-carousel {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .testimonial-slide {
+            display: none;
+            animation-duration: 1s;
+        }
+
+        .testimonial-active {
+            display: block;
+            animation-name: fadeIn;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Feature tabs */
+        .feature-tab {
+            cursor: pointer;
+            padding: 15px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-tab.active {
+            background-color: white;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-tab:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--light-purple);
+        }
+
+        .feature-content {
+            display: none;
+            animation-duration: 0.6s;
+        }
+
+        .feature-content.active {
+            display: block;
+            animation-name: fadeIn;
+        }
+
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            transition: all 0.5s ease;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* Pulse animation */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(138, 43, 226, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(138, 43, 226, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(138, 43, 226, 0);
+            }
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                right: 31px;
+            }
+            
+            .timeline-container {
+                width: 100%;
+                padding-right: 70px;
+                padding-left: 25px;
+            }
+            
+            .timeline-container::after {
+                right: 18px;
+            }
+            
+            .right::before, .left::before {
+                right: 60px;
+                border-width: 10px 0 10px 10px;
+                border-color: transparent transparent transparent white;
+            }
+            
+            .left {
+                right: 0;
+            }
+        }
+
+        /* Specific RTL adjustments */
+        .rtl-icon-flip {
+            transform: scaleX(-1);
+        }
+
+        .rtl-space-reverse {
+            margin-right: 0;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <img src="./assets/logo.png" alt="Pixelligence Logo" class="h-10 w-10 ml-3">
+                    <h1 class="text-2xl font-bold gradient-text">PIXELLIGENCE</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="nav-link">בית</a>
+                    <a href="#features" class="nav-link">תכונות</a>
+                    <a href="#capabilities" class="nav-link">יכולות</a>
+                    <a href="#how-it-works" class="nav-link">איך זה עובד</a>
+                    <a href="#contact" class="nav-link">צור קשר</a>
+                </div>
+                <div class="flex items-center">
+                    <a href="./en/index.html" class="btn-secondary mr-4">EN</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden py-4">
+                <a href="#home" class="block py-2 text-center nav-link">בית</a>
+                <a href="#features" class="block py-2 text-center nav-link">תכונות</a>
+                <a href="#capabilities" class="block py-2 text-center nav-link">יכולות</a>
+                <a href="#how-it-works" class="block py-2 text-center nav-link">איך זה עובד</a>
+                <a href="#contact" class="block py-2 text-center nav-link">צור קשר</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 slide-in mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        <span class="gradient-text">מערכת אבטחה</span> מבוססת בינה מלאכותית
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-700 mb-8">
+                        מערכת אבטחה מתקדמת המבוססת על למידה עמוקה ובינה מלאכותית ומבצעת ניתוח של שידור הוידאו החי ממצלמות אבטחה הקיימות בזמן אמת.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <button class="btn-primary mr-0 ml-4"> <a href="#contact">
+                            <i class="fas fa-shield-alt ml-2"></i> התחל</a>
+                        </button>
+                        <button class="btn-secondary">
+                            <i class="fas fa-play ml-2"></i> צפה בהדגמה
+                        </button>
+                    </div>
+                </div>
+                <div class="md:w-1/2 slide-in" style="animation-delay: 0.3s;">
+                    <div class="relative">
+                        <div class="mr-6 bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-500 rounded-lg shadow-2xl p-1">
+                            <div class=" rounded-lg p-6">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="col-span-2">
+                                        <div class="bg-gray-200 rounded-lg p-4 flex items-center justify-between">
+                                            <div class="flex items-center">
+                                                <div class="bg-red-500 rounded-full h-3 w-3 pulse"></div>
+                                                <span class="mr-2 text-sm font-semibold text-gray-700">LIVE FEED</span>
+                                            </div>
+                                            <div class="text-xs text-gray-500">Camera 01</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gray-100 rounded-lg p-3">
+                                        <div class="text-xs text-gray-700 mb-1">Movement Detection</div>
+                                        <div class="progress-bar w-3/4 mb-1"></div>
+                                        <div class="text-xs text-left text-gray-500">75%</div>
+                                    </div>
+                                    <div class="bg-gray-100 rounded-lg p-3">
+                                        <div class="text-xs text-gray-700 mb-1">Object Recognition</div>
+                                        <div class="progress-bar w-4/5 mb-1"></div>
+                                        <div class="text-xs text-left text-gray-500">80%</div>
+                                    </div>
+                                    <div class="col-span-2 bg-gray-800 rounded-lg h-40 flex items-center justify-center">
+                                        <i class="fas fa-video text-5xl text-gray-600"></i>
+                                    </div>
+                                    <div class="col-span-2">
+                                        <div class="bg-red-100 rounded-lg p-2 border border-red-300">
+                                            <div class="flex items-center text-red-700">
+                                                <i class="fas fa-exclamation-triangle ml-2"></i>
+                                                <span class="text-sm font-semibold">ALERT: Person detected in restricted area</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section id="features" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16 slide-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">תכונות מפתח</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    מערכת האבטחה המתקדמת שלנו מבוססת בינה מלאכותית מציעה ניטור והתראות בזמן אמת באמצעות מגוון רחב של תכונות חכמות.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.1s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">אבטחה בזמן אמת</h3>
+                    <p class="text-gray-700 mb-4">
+                        בינה מלאכותית מתקדמת המנתחת שידורי וידאו חיים ממצלמות אבטחה קיימות כדי לזהות איומים באופן מיידי.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.2s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">התראות מיידיות</h3>
+                    <p class="text-gray-700 mb-4">
+                        קבלת התראות מיידיות עם קטעי וידאו של אירועים שזוהו ישירות למכשיר הנייד שלך.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.3s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">אינטגרציה עם API</h3>
+                    <p class="text-gray-700 mb-4">
+                        המערכת יכולה להפעיל תגובות פיזיות על ידי ביצוע קריאות API לשערים, אזעקות, רמקולים, תאורה ומכשירים אחרים ברשת הפנימית.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.4s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">מעגל סגור</h3>
+                    <p class="text-gray-700 mb-4">
+                        המערכת יכולה לעבוד במעגל סגור, ללא אינטרנט, ולמעשה להיות חלק מהרשת הפנימית של הארגון שלכם.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.5s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">דוחות וניתוח</h3>
+                    <p class="text-gray-700 mb-4">
+                        המערכת תדע לייצר דוחות המתארים שהתרחש לאורך הזמן, ובכך תוכלו ללמוד עוד על המתרחש בארגונכם.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.6s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">ארכיון חכם</h3>
+                    <p class="text-gray-700 mb-4">
+                        המערכת יוצרת ארכיון חכם של אירועים שקרו לעייני המצלמות כפי שהוגדרו.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detection Capabilities Section -->
+    <section id="capabilities" class="py-16">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16 slide-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">יכולות זיהוי</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    Pixelligence מגיעה עם מגוון מקיף של יכולות זיהוי, עם תכונות נוספות המתווספות באופן קבוע.
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row">
+                <!-- Detection Capabilities Tabs -->
+                <div class="md:w-1/3 mb-8 md:mb-0 md:pl-8">
+                    <div class="bg-gradient-to-br from-purple-100 to-cyan-50 rounded-lg p-4">
+                        <h3 class="text-xl font-bold mb-4 text-center gradient-text">יכולות נוכחיות</h3>
+                        <div class="space-y-3">
+                            <div class="feature-tab active" data-tab="tab-1">
+                                <i class="fas fa-user ml-2"></i> זיהוי אנשים
+                            </div>
+                            <div class="feature-tab" data-tab="tab-2">
+                                <i class="fas fa-car ml-2"></i> זיהוי כלי רכב
+                            </div>
+                            <div class="feature-tab" data-tab="tab-3">
+                                <i class="fas fa-fire ml-2"></i> זיהוי אש ועשן
+                            </div>
+                            <div class="feature-tab" data-tab="tab-4">
+                                <i class="fas fa-mask ml-2"></i> זיהוי אנשים עם מסכות
+                            </div>
+                            <div class="feature-tab" data-tab="tab-5">
+                                <i class="fas fa-gun ml-2"></i> זיהוי נשק
+                            </div>
+                            <div class="feature-tab" data-tab="tab-6">
+                                <i class="fas fa-paw ml-2"></i> זיהוי בעלי חיים
+                            </div>
+                            <div class="feature-tab" data-tab="learning-system">
+                                <i class="fas fa-brain ml-2"></i> מערכת לומדת
+                            </div>
+                            <div class="feature-tab" data-tab="custom-training">
+                                <i class="fas fa-cogs ml-2"></i> אימון מותאם אישית
+                            </div>
+                        </div>
+                        
+                        <hr class="my-6 border-purple-200">
+                        
+                        <h3 class="text-xl font-bold mb-4 text-center gradient-text">בקרוב</h3>
+                        <div class="space-y-3">
+                            <div class="feature-tab opacity-75" data-tab="future-1">
+                                <i class="fas fa-id-card ml-2"></i> זיהוי פנים
+                            </div>
+                            <div class="feature-tab opacity-75" data-tab="future-2">
+                                <i class="fas fa-car-crash ml-2"></i> זיהוי אלימות ונפילות
+                            </div>
+                            <div class="feature-tab opacity-75" data-tab="future-3">
+                                <i class="fas fa-font ml-2"></i> קריאת לוחיות רישוי וטקסט
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detection Capabilities Content -->
+                <div class="md:w-2/3">
+                    <div class="bg-white rounded-lg shadow-lg p-6 h-full">
+                        <!-- Tab 1 Content -->
+                        <div class="feature-content active" id="tab-1">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white ml-4">
+                                    <i class="fas fa-user text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">זיהוי אנשים</h3>
+                            </div>
+                            <p class="text-gray-700 mb-6">
+                                הבינה המלאכותית המתקדמת שלנו יכולה לזהות אנשים בצילומי מצלמה בדיוק גבוה. המערכת יכולה לעקוב אחר אנשים, לספור אנשים באזור מסוים ולהתריע כאשר מישהו נכנס לאזור מוגבל.
+                            </p>
+                            <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                                <h4 class="font-semibold mb-2">יישומים:</h4>
+                                <ul class="list-disc pr-5 space-y-2">
+                                    <li>גילוי פריצה באזורים מאובטחים</li>
+                                    <li>ניטור וניהול קהל</li>
+                                    <li>ספירת תפוסה עבור תקנות בטיחות</li>
+                                </ul>
+                            </div>
+                            <div class="bg-purple-50 rounded-lg p-4 border-r-4 border-purple-600">
+                                <div class="flex items-center">
+                                    <i class="fas fa-lightbulb text-purple-600 ml-2"></i>
+                                    <span class="font-semibold">תכונה חכמה:</span>
+                                </div>
+                                <p class="text-gray-700 mt-2">
+                                    תכונת עמדת השמירה הדיגיטלית שלנו מבטיחה כי לפחות אדם אחד נמצא תמיד במיקום המיועד, ומפעילה התראות אם העמדה ננטשת.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tab 2 Content -->
+                        <div class="feature-content" id="tab-2">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center text-white ml-4" style="box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                                    <i class="fas fa-car text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">זיהוי כלי רכב</h3>
+                            </div>
+                            <p class="text-gray-700 mb-6">
+                                Pixelligence יכולה לזהות ולסווג סוגים שונים של כלי רכב כולל מכוניות, אופנועים, משאיות ואופניים בדיוק גבוה.
+                            </p>
+                            <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                                <h4 class="font-semibold mb-2">סוגי כלי רכב שניתן לזהות:</h4>
+                                <ul class="list-disc pr-5 space-y-2">
+                                    <li>מכוניות וכלי רכב פרטיים</li>
+                                    <li>אופנועים וקטנועים</li>
+                                    <li>משאיות וכלי רכב מסחריים</li>
+                                    <li>אופניים ותחבורה חלופית</li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 rounded-lg p-4 border-r-4 border-cyan-500">
+                                <div class="flex items-center">
+                                    <i class="fas fa-lightbulb text-cyan-500 ml-2"></i>
+                                    <span class="font-semibold">תכונה חכמה:</span>
+                                </div>
+                                <p class="text-gray-700 mt-2">
+                                    מוני החניה החכמים שלנו יכולים לנטר את תפוסת מגרש החניה בזמן אמת, לעקוב אחר כניסות ויציאות במספר מצלמות במקביל.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tab 3 Content -->
+                        <div class="feature-content" id="tab-3">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white ml-4">
+                                    <i class="fas fa-fire text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">זיהוי אש ועשן</h3>
+                            </div>
+                            <p class="text-gray-700 mb-6">
+                                גילוי מוקדם של אש ועשן יכול למנוע אסונות. המערכת שלנו יכולה לזהות את הסימנים הראשונים של אש או עשן ולהתריע באופן מיידי, ובכך להציל חיים ורכוש.
+                            </p>
+                            <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                                <h4 class="font-semibold mb-2">יתרונות מרכזיים:</h4>
+                                <ul class="list-disc pr-5 space-y-2">
+                                    <li>מערכת התראה מוקדמת למקרי חירום של אש</li>
+                                    <li>עובדת לצד אזעקות אש מסורתיות</li>
+                                    <li>אימות ויזואלי להפחתת התראות שווא</li>
+                                    <li>מידע מיקום מדויק לתגובה מהירה יותר</li>
+                                </ul>
+                            </div>
+                            <div class="bg-red-50 rounded-lg p-4 border-r-4 border-red-600">
+                                <div class="flex items-center">
+                                    <i class="fas fa-lightbulb text-red-600 ml-2"></i>
+                                    <span class="font-semibold">תגובת חירום:</span>
+                                </div>
+                                <p class="text-gray-700 mt-2">
+                                    כאשר מזוהים אש או עשן, המערכת יכולה לשלוח באופן אוטומטי התראות עם קטעי וידאו לצוותי החירום, ולספק להם מידע ויזואלי חיוני לפני ההגעה.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tab 4 Content -->
+                        <div class="feature-content" id="tab-4">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-white ml-4">
+                                    <i class="fas fa-mask text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">זיהוי אנשים עם מסכות</h3>
+                            </div>
+                            <p class="text-gray-700 mb-6">
+                                המערכת יכולה לזהות אנשים עם פנים מוסתרות, בין אם באמצעות מסכות, כובעים או פריטים אחרים שעלולים להצביע על התנהגות חשודה בסביבות מאובטחות.
+                            </p>
+                            <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                                <h4 class="font-semibold mb-2">יכולות זיהוי:</h4>
+                                <ul class="list-disc pr-5 space-y-2">
+                                    <li>מסכות פנים וכיסויים</li>
+                                    <li>כובעים וקפוצ'ונים המסתירים זהות</li>
+                                    <li>רעולי פנים</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gray-200 rounded-lg p-4 border-r-4 border-gray-700">
+                                <div class="flex items-center">
+                                    <i class="fas fa-lightbulb text-gray-700 ml-2"></i>
+                                    <span class="font-semibold">יישום אבטחה:</span>
+                                </div>
+                                <p class="text-gray-700 mt-2">
+                                    בעל ערך במיוחד עבור בנקים, חנויות תכשיטים ומתקנים בעלי אבטחה גבוהה בהם הסתרת זהות עלולה להצביע על כוונה פלילית פוטנציאלית. ניתן להשתמש בה גם לאכיפת שימוש במסכות או להתריע במקרה של הופעת דמות חשודה.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tab 5 Content -->
+                        <div class="feature-content" id="tab-5">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-blue-700 rounded-full flex items-center justify-center text-white ml-4">
+                                    <i class="fas fa-gun text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">זיהוי נשק</h3>
+                            </div>
+                            <p class="text-gray-700 mb-6">
+                                Pixelligence יכולה לזהות מגוון כלי נשק כולל אקדחים, רובים וסכינים בצילומי וידאו, ומספקת התראות מוקדמות קריטיות במצבים של איום פוטנציאלי.
+                            </p>
+                            <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                                <h4 class="font-semibold mb-2">כלי נשק הניתנים לזיהוי:</h4>
+                                <ul class="list-disc pr-5 space-y-2">
+                                    <li>אקדחים ופיסטולים</li>
+                                    <li>רובים וכלי נשק ארוכים</li>
+                                    <li>סכינים ונשקים מחודדים</li>
+                                    <li>כלים מסוכנים פוטנציאליים באזורים מוגבלים</li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 rounded-lg p-4 border-r-4 border-blue-700">
+                                <div class="flex items-center">
+                                    <i class="fas fa-lightbulb text-blue-700 ml-2"></i>
+                                    <span class="font-semibold">תגובה קריטית:</span>
+                                </div>
+                                <p class="text-gray-700 mt-2">
+                                    כאשר מזוהים כלי נשק, Pixelligence יכולה להתריע מיידית לצוות האבטחה עם מידע מיקום מדויק, המאפשר תגובה מהירה לאיומים פוטנציאליים.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tab 6 Content -->
+                        <div class="feature-content" id="tab-6">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white ml-4">
+                                    <i class="fas fa-paw text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">זיהוי בעלי חיים</h3>
+                            </div>
+                            <p class="text-gray-700 mb-6">
+                                המערכת שלנו יכולה לזהות מגוון בעלי חיים, כאשר כרגע המיקוד הוא על חתולים, כלבים וסוסים. זה שימושי להגנת רכוש, ניטור חיות בר או אבטחת חיות מחמד.
+                            </p>
+                            <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                                <h4 class="font-semibold mb-2">זיהוי בעלי חיים נוכחי:</h4>
+                                <ul class="list-disc pr-5 space-y-2">
+                                    <li>חתולים וחתוליים</li>
+                                    <li>כלבים מגזעים וגדלים שונים</li>
+                                    <li>סוסים</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 rounded-lg p-4 border-r-4 border-green-600">
+                                <div class="flex items-center">
+                                    <i class="fas fa-lightbulb text-green-600 ml-2"></i>
+                                    <span class="font-semibold">ניהול בעלי חיים:</span>
+                                </div>
+                                <p class="text-gray-700 mt-2">
+                                    Pixelligence יכולה לסייע בניהול בעיות הנגרמות על ידי בעלי חיים, כגון זיהוי חיות משוטטות באזורים מוגבלים, ניטור בעלי חיים במשק או הבטחת בטיחות חיות מחמד.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Learning System Content -->
+                        <div class="feature-content" id="learning-system">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white ml-4">
+                                    <i class="fas fa-brain text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">מערכת למידה מתמשכת</h3>
+                            </div>
+                            <p class="text-gray-700 mb-6">
+                                בניגוד למערכות אבטחה מסורתיות, Pixelligence מציעה יכולת למידה עצמית מתקדמת המאפשרת לה לשפר באופן מתמיד את דיוק הזיהוי שלה לאורך זמן על ידי התאמה לסביבה הספציפית שלך ולמערך המצלמות.
+                            </p>
+                            <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                                <h4 class="font-semibold mb-2">יתרונות למידה אדפטיבית:</h4>
+                                <ul class="list-disc pr-5 space-y-2">
+                                    <li><span class="font-medium">התאמה לסביבה:</span> המערכת לומדת את המאפיינים הוויזואליים הספציפיים של מיקומי המצלמות שלך</li>
+                                    <li><span class="font-medium">התאמת תאורה:</span> כיול אוטומטי לתנאי תאורה שונים לאורך היום והעונות</li>
+                                    <li><span class="font-medium">הפחתת התראות שווא:</span> דיוק גדל בהבחנה בין איומים אמיתיים לבין תנועות שאינן מזיקות</li>
+                                    <li><span class="font-medium">אופטימיזציה למצלמה ספציפית:</span> כוונון פרמטרים של זיהוי עבור עמדה וזווית של כל מצלמה בנפרד</li>
+                                </ul>
+                            </div>
+                            <div class="bg-indigo-50 rounded-lg p-4 border-r-4 border-indigo-600">
+                                <div class="flex items-center">
+                                    <i class="fas fa-chart-line text-indigo-600 ml-2"></i>
+                                    <span class="font-semibold">שיפור ביצועים:</span>
+                                </div>
+                                <p class="text-gray-700 mt-2">
+                                    מערכת הלמידה מבטיחה ש-Pixelligence מתפתחת עם הארגון שלך, ומספקת פתרונות אבטחה מותאמים אישית העונים על הצרכים הספציפיים שלך.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tab for Custom Training -->
+                        <div class="feature-content" id="custom-training">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center text-white ml-4">
+                                    <i class="fas fa-cogs text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">אימון מותאם אישית</h3>
+                            </div>
+                            <p class="text-gray-700 mb-6">
+                                לאתגרי אבטחה ייחודיים, אנו מפתחים מודלים מותאמים אישית של בינה מלאכותית המותאמים במיוחד לצרכי הארגון שלך. הצוות שלנו עובד איתך לאיסוף נתונים רלוונטיים, פיתוח פתרון מיוחד, והטמעת מודל שמזהה בדיוק את מה שאתה צריך לנטר.
+                            </p>
+                            <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                                <h4 class="font-semibold mb-2">תהליך פיתוח מודל מותאם אישית:</h4>
+                                <ul class="list-disc pr-5 space-y-2">
+                                    <li><span class="font-medium">איסוף נתונים:</span> אנו אוספים נתונים ספציפיים למקרה השימוש שלך, אם מהמערכות הקיימות שלך או דרך תהליך איסוף מבוקר</li>
+                                    <li><span class="font-medium">אימון מודל:</span> מומחי הבינה המלאכותית שלנו בונים ומאמנים מודל ייחודי שתוכנן בלעדית לדרישות הזיהוי שלך</li>
+                                    <li><span class="font-medium">בדיקה וליטוש:</span> המודל עובר בדיקות נרחבות בסביבה שלך כדי להבטיח ביצועים אופטימליים</li>
+                                    <li><span class="font-medium">פריסה ואינטגרציה:</span> המודל המותאם אישית משולב במערכת ה-Pixelligence שלך</li>
+                                </ul>
+                            </div>
+                            <div class="bg-yellow-50 rounded-lg p-4 border-r-4 border-yellow-600">
+                                <div class="flex items-center">
+                                    <i class="fas fa-tag text-yellow-600 ml-2"></i>
+                                    <span class="font-semibold">מודל תמחור מותאם אישית:</span>
+                                </div>
+                                <p class="text-gray-700 mt-2">
+                                    אימון מותאם אישית מתומחר בצורה שונה מהחבילות הסטנדרטיות שלנו, כאשר העלויות משתנות בהתאם למורכבות אתגר הזיהוי, זמינות הנתונים ודרישות היישום. צור איתנו קשר להתייעצות אישית והצעת מחיר המותאמת לצרכים הספציפיים שלך.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Future Tab Contents -->
+                        <div class="feature-content" id="future-1">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-purple-400 rounded-full flex items-center justify-center text-white ml-4">
+                                    <i class="fas fa-id-card text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">זיהוי פנים <span class="text-sm font-normal text-purple-600 mr-2">בקרוב</span></h3>
+                            </div>
+                            <p class="text-gray-700 mb-6">
+                                תכונת זיהוי הפנים הקרובה שלנו תאפשר זיהוי אנשים, בקרת גישה וזיהוי אישים חשובים בדיוק גבוה ותוך עמידה בתקנות פרטיות.
+                            </p>
+                            <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                                <h4 class="font-semibold mb-2">יישומים:</h4>
+                                <ul class="list-disc pr-5 space-y-2">
+                                    <li>זיהוי אנשים לא מורשים</li>
+                                    <li>מעקב נוכחות אוטומטי לעובדים המגיעים ועוזבים</li>
+                                    <li>התראות מיידיות כאשר מזוהים אנשים מושבתים או מרשימת המעקב</li>
+                                    <li>ניהול זמן ונוכחות עובדים</li>
+                                    <li>זיהוי אנשים חשובים</li>
+                                    <li>אינטגרציה עם מערכות בקרת גישה</li>
+                                </ul>
+                            </div>
+                            <div class="bg-purple-50 rounded-lg p-4 mb-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-clock text-purple-600 ml-2"></i>
+                                    <span class="font-semibold">סטטוס פיתוח:</span>
+                                </div>
+                                <div class="mt-2">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-purple-600 h-2.5 rounded-full" style="width: 70%"></div>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">השלמת תכונה: ~70%</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-content" id="future-2">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-red-400 rounded-full flex items-center justify-center text-white ml-4">
+                                    <i class="fas fa-car-crash text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">זיהוי אלימות ונפילות <span class="text-sm font-normal text-red-600 mr-2">בקרוב</span></h3>
+                            </div>
+                            <p class="text-gray-700 mb-6">
+                                הבינה המלאכותית שלנו תוכל בקרוב לזהות עימותים פיזיים, נפילות ותאונות, ולאפשר תגובה מהירה למקרי חירום רפואיים או אירועי אבטחה.
+                            </p>
+                            <div class="bg-red-50 rounded-lg p-4 mb-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-clock text-red-600 ml-2"></i>
+                                    <span class="font-semibold">סטטוס פיתוח:</span>
+                                </div>
+                                <div class="mt-2">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-red-600 h-2.5 rounded-full" style="width: 55%"></div>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">השלמת תכונה: ~55%</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-content" id="future-3">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center text-white ml-4">
+                                    <i class="fas fa-font text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">קריאת לוחיות רישוי וטקסט <span class="text-sm font-normal text-cyan-500 mr-2">בקרוב</span></h3>
+                            </div>
+                            <p class="text-gray-700 mb-6">
+                                יכולות OCR הקרובות יאפשרו ל-Pixelligence לקרוא לוחיות רישוי וטקסט אחר בשידור הווידאו, ולאפשר מעקב אחר כלי רכב ובקרת גישה.
+                            </p>
+                            <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-clock text-cyan-500 ml-2"></i>
+                                    <span class="font-semibold">סטטוס פיתוח:</span>
+                                </div>
+                                <div class="mt-2">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-cyan-500 h-2.5 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">השלמת תכונה: ~60%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Digital Toolbox Section -->
+    <section class="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16 slide-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">ארגז כלים דיגיטלי</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    כלים חזקים המאפשרים יכולות ניטור והתראה מקיפות.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tool 1 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.1s;">
+                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
+                        <i class="fas fa-border-all"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">גדר דיגיטלית</h3>
+                    <p class="text-gray-700 mb-4">
+                        יצירת קווי גבול וירטואליים למצלמות המפעילים התראות מיידיות כאשר אובייקטים חוצים אותם.
+                    </p>
+                </div>
+
+                <!-- Tool 2 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.2s;">
+                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">אזורים מוגבלים</h3>
+                    <p class="text-gray-700 mb-4">
+                        הגדרת אזורים ספציפיים בתצוגת המצלמה שהם מחוץ לתחום, יוצרים התראות בעת כניסה אליהם.
+                    </p>
+                </div>
+
+                <!-- Tool 3 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.3s;">
+                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">ספירת אובייקטים</h3>
+                    <p class="text-gray-700 mb-4">
+                        ספירת אובייקטים נפרדים בזמן אמת ושימוש בנתונים אלה למגוון יישומים וניטור.
+                    </p>
+                </div>
+
+                <!-- Tool 4 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.4s;">
+                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">עמדת שמירה דיגיטלית</h3>
+                    <p class="text-gray-700 mb-4">
+                        הבטחת נוכחות קבועה במיקומים מרכזיים על ידי התראה כאשר אזור נשאר ללא איוש.
+                    </p>
+                </div>
+
+                <!-- Tool 5 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.5s;">
+                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
+                        <i class="fas fa-sort-amount-up"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">מונים חכמים</h3>
+                    <p class="text-gray-700 mb-4">
+                        ניטור כניסות ויציאות במספר מצלמות כדי לעקוב אחר תפוסה בבניינים או במגרשי חניה.
+                    </p>
+                </div>
+
+                <!-- Tool 6 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.6s;">
+                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
+                        <i class="fas fa-archive"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">ארכיון חכם</h3>
+                    <p class="text-gray-700 mb-4">
+                        יוצר קטעי וידאו של אירועים רלוונטיים במקום לדרוש ממך לחפש בשעות של צילומים.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16 slide-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">איך זה עובד</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    Pixelligence משתלבת באופן חלק עם תשתית האבטחה הקיימת שלך כדי לספק ניטור חכם והתראות.
+                </p>
+            </div>
+
+            <div class="timeline slide-in">
+                <!-- Step 1 -->
+                <div class="timeline-container right">
+                    <div class="content">
+                        <h3 class="text-xl font-bold mb-2">התקנה ואינטגרציה</h3>
+                        <p>
+                            Pixelligence מתחברת למצלמות האבטחה הקיימות שלך, ללא צורך בהשקעה בחומרה נוספת.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="timeline-container left">
+                    <div class="content">
+                        <h3 class="text-xl font-bold mb-2">התאמה אישית</h3>
+                        <p>
+                            הצוות שלנו עובד איתך ליצירת מערכת מותאמת אישית של כללים והתראות הספציפיים לצרכי האבטחה שלך.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="timeline-container right">
+                    <div class="content">
+                        <h3 class="text-xl font-bold mb-2">ניתוח בינה מלאכותית</h3>
+                        <p>
+                            המערכת מנתחת באופן קבוע שידורי וידאו בזמן אמת באמצעות אלגוריתמים של למידה עמוקה כדי לזהות אובייקטים ואירועים.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="timeline-container left">
+                    <div class="content">
+                        <h3 class="text-xl font-bold mb-2">התראות מיידיות</h3>
+                        <p>
+                            כאשר מזוהים אירועים שהוגדרו מראש, המערכת שולחת מיד התראות עם קטעי וידאו לצוות המיועד.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="timeline-container right">
+                    <div class="content">
+                        <h3 class="text-xl font-bold mb-2">למידה מתמשכת</h3>
+                        <p>
+                            לאורך זמן, המערכת מסתגלת לסביבה שלך, מגדילה את הדיוק ומפחיתה התראות שווא.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="timeline-container left">
+                    <div class="content">
+                        <h3 class="text-xl font-bold mb-2">דיווח וניתוח</h3>
+                        <p>
+                            יצירת דוחות מקיפים להבנת דפוסים וקבלת תובנות על פעילות בארגון שלך.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Closed Circuit Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 pl-0 md:pl-8 slide-in">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">אבטחת מעגל סגור</h2>
+                    <p class="text-lg text-gray-700 mb-6">
+                        המערכת יכולה לעבוד במעגל סגור, ללא אינטרנט, ולמעשה להיות חלק מהרשת הפנימית של הארגון שלכם.
+                    </p>
+                    <div class="bg-purple-50 rounded-lg p-6 border-r-4 border-purple-600">
+                        <h3 class="text-xl font-semibold mb-3">יתרונות אבטחה מרכזיים:</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 ml-2"></i>
+                                <span>כל הנתונים נשארים באתר, משידורי וידאו ועד ניתוח</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 ml-2"></i>
+                                <span>אין עיכובי שידור - התראות מתרחשות בזמן אמת</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 ml-2"></i>
+                                <span>סיכון אבטחת סייבר מופחת ללא חשיפה חיצונית</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 ml-2"></i>
+                                <span>קישוריות מוגבלת אופציונלית להתראות ניידות</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="md:w-1/2 slide-in" style="animation-delay: 0.3s;">
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-purple-600 to-cyan-400 rounded-lg shadow-2xl p-1">
+                            <div class="bg-white rounded-lg p-6">
+                                <div class="bg-gray-800 rounded-lg p-6 relative">
+                                    <div class="flex justify-center mb-4">
+                                        <div class="w-20 h-20 rounded-full bg-gradient-to-r from-purple-600 to-cyan-400 flex items-center justify-center">
+                                            <i class="fas fa-server text-white text-3xl"></i>
+                                        </div>
+                                    </div>
+                                    <div class="text-center text-white mb-6">
+                                        <h3 class="text-xl font-bold">LOCAL SECURITY SERVER</h3>
+                                        <p class="text-gray-400">On-premises processing</p>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-4">
+                                        <div class="col-span-3 bg-gray-700 p-3 rounded-lg mb-2">
+                                            <div class="flex justify-between items-center">
+                                                <span class="text-gray-300 text-sm">Internal Network</span>
+                                                <span class="text-green-400 text-xs">SECURE</span>
+                                            </div>
+                                        </div>
+                                        <div class="bg-gray-900 p-2 rounded-lg flex flex-col items-center">
+                                            <i class="fas fa-video text-gray-400 mb-2"></i>
+                                            <span class="text-gray-400 text-xs">Camera 1</span>
+                                        </div>
+                                        <div class="bg-gray-900 p-2 rounded-lg flex flex-col items-center">
+                                            <i class="fas fa-video text-gray-400 mb-2"></i>
+                                            <span class="text-gray-400 text-xs">Camera 2</span>
+                                        </div>
+                                        <div class="bg-gray-900 p-2 rounded-lg flex flex-col items-center">
+                                            <i class="fas fa-video text-gray-400 mb-2"></i>
+                                            <span class="text-gray-400 text-xs">Camera 3</span>
+                                        </div>
+                                        <div class="col-span-3 flex items-center justify-center">
+                                            <div class="border-r-2 border-dashed border-gray-600 h-8"></div>
+                                        </div>
+                                        <div class="col-span-3 bg-gray-700 p-3 rounded-lg mb-2">
+                                            <div class="flex justify-between items-center">
+                                                <span class="text-gray-300 text-sm">Alert Gateway</span>
+                                                <span class="text-yellow-400 text-xs">RESTRICTED</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-span-3 flex items-center justify-center">
+                                            <div class="border-r-2 border-dashed border-gray-600 h-8"></div>
+                                        </div>
+                                        <div class="col-span-3 bg-red-900 bg-opacity-20 p-3 rounded-lg border border-red-700">
+                                            <div class="flex justify-between items-center">
+                                                <span class="text-gray-300 text-sm">External Network</span>
+                                                <span class="text-red-400 text-xs">BLOCKED</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 text-center text-gray-500 text-sm">
+                                    Pixelligence פועלת בתוך היקף הרשת המאובטחת שלך
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real-time Alerts Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row-reverse items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 pr-0 md:pr-8 slide-in">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">התראות בזמן אמת</h2>
+                    <p class="text-lg text-gray-700 mb-6">
+                        במידה והוגדר - המערכת מסוגלת לשלוח הודעת טקסט על אשר התרחש, מיקום מדויק וקליפ וידאו קצר של התקרית שנקלטה - בזמן אמת לאנשי הקשר בארגון.
+                    </p>
+                    <div class="bg-cyan-50 rounded-lg p-6 border-r-4 border-cyan-600">
+                        <h3 class="text-xl font-semibold mb-3 text-cyan-800">יתרונות תגובה מהירה:</h3>
+                        <p class="text-gray-700">
+                            תגובה מהירה מונעת התדרדרויות מצב שהן לפעמים קריטיות.
+                        </p>
+                    </div>
+                </div>
+                <div class="md:w-1/2 slide-in" style="animation-delay: 0.3s;">
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg shadow-2xl p-1">
+                            <div class="bg-white rounded-lg">
+                                <div class="p-6 pb-0">
+                                    <div class="text-center mb-4">
+                                        <div class="inline-block bg-cyan-100 rounded-full px-3 py-1 text-sm text-cyan-800">
+                                            <i class="fas fa-mobile-alt ml-1"></i> Mobile Alert
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-4 pb-6">
+                                    <div class="bg-gray-100 rounded-2xl p-4 mx-auto max-w-sm shadow-sm">
+                                        <div class="flex items-center mb-3">
+                                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-cyan-400 flex items-center justify-center">
+                                                <i class="fas fa-shield-alt text-white"></i>
+                                            </div>
+                                            <div class="mr-3">
+                                                <h4 class="font-bold">Pixelligence Alert</h4>
+                                                <p class="text-xs text-gray-500">Just now</p>
+                                            </div>
+                                        </div>
+                                        <div class="bg-red-100 p-3 rounded-lg mb-3 border-r-4 border-red-500">
+                                            <div class="flex items-start">
+                                                <i class="fas fa-exclamation-triangle text-red-500 mt-1 ml-2"></i>
+                                                <div>
+                                                    <h5 class="font-semibold text-red-700">ALERT: Person Detected</h5>
+                                                    <p class="text-sm text-gray-700">Restricted area entered at North Entrance</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-gray-800 rounded-lg h-40 mb-3 flex items-center justify-center relative overflow-hidden">
+                                            <i class="fas fa-play-circle text-white text-4xl absolute"></i>
+                                            <div class="absolute bottom-2 left-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">
+                                                0:18
+                                            </div>
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <button class="flex-1 bg-red-500 text-white text-sm py-2 px-3 rounded-lg">
+                                                <i class="fas fa-exclamation-circle ml-1"></i> Emergency
+                                            </button>
+                                            <button class="flex-1 bg-blue-500 text-white text-sm py-2 px-3 rounded-lg">
+                                                <i class="fas fa-user-check ml-1"></i> Acknowledge
+                                            </button>
+                                            <button class="flex-1 bg-gray-200 text-gray-700 text-sm py-2 px-3 rounded-lg">
+                                                <i class="fas fa-times ml-1"></i> Dismiss
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 bg-white rounded-full h-16 w-16 flex items-center justify-center shadow-lg">
+                            <div class="bg-gradient-to-br from-purple-600 to-cyan-400 rounded-full h-12 w-12 flex items-center justify-center pulse">
+                                <i class="fas fa-bell text-white text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reports and Events Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16 slide-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">דוחות וניהול אירועים</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    כמה אתם באמת יודעים על המתרחש בארגונכם?
+                </p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row">
+                <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pl-8 slide-in">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <div class="bg-gradient-to-r from-purple-600 to-cyan-500 p-4">
+                            <h3 class="text-white text-xl font-bold">מערכת ניהול אירועים</h3>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-700 mb-6">
+                                במערכת משולבת היכולת לתעד, לנהל ולתחקר אירועים שקרו.
+                            </p>
+                            <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                                <h4 class="font-semibold mb-3">יתרונות מרכזיים:</h4>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-purple-600 mt-1 ml-2"></i>
+                                        <span>יצירת אירוע בלחיצה אחת מהתראות זיהוי</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-purple-600 mt-1 ml-2"></i>
+                                        <span>מעקב אחר התפתחויות ותיעוד פעולות תגובה</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-purple-600 mt-1 ml-2"></i>
+                                        <span>היסטוריית אירועים מקיפה וסטטוס פתרון</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-purple-600 mt-1 ml-2"></i>
+                                        <span>משולב עם ראיות וידאו ונתוני זיהוי</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="text-gray-700">
+                                לאחר קבלת התרעה במערכת על זיהוי תוכלו בלחיצת כפתור לפתוח אירוע ולעקוב אחרי התפתחויות ותיעוד הטיפול בהן.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 slide-in" style="animation-delay: 0.3s;">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <div class="bg-gradient-to-r from-cyan-500 to-purple-600 p-4">
+                            <h3 class="text-white text-xl font-bold">ניתוח מתקדם ודיווח</h3>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-700 mb-6">
+                                המערכת תדע לייצר דוחות המתארים שהתרחש לאורך הזמן, ובכך תוכלו ללמוד עוד על המתרחש בארגונכם ולזהות דפוסים של תרחישים שקשה לגלות לבד.
+                            </p>
+                            <div class="bg-gray-100 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3">סוגי דוחות:</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center ml-3">
+                                                <i class="fas fa-chart-line text-purple-600"></i>
+                                            </div>
+                                            <span class="font-medium">מגמות פעילות</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 bg-cyan-100 rounded-lg flex items-center justify-center ml-3">
+                                                <i class="fas fa-map-marker-alt text-cyan-600"></i>
+                                            </div>
+                                            <span class="font-medium">מוקדי פעילות</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center ml-3">
+                                                <i class="fas fa-clock text-purple-600"></i>
+                                            </div>
+                                            <span class="font-medium">ניתוח זמנים</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 bg-cyan-100 rounded-lg flex items-center justify-center ml-3">
+                                                <i class="fas fa-exclamation-triangle text-cyan-600"></i>
+                                            </div>
+                                            <span class="font-medium">סוגי אירועים</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smart Archive Section -->
+    <section class="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pl-8 slide-in">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">ארכיון חכם</h2>
+                    <p class="text-lg text-gray-700 mb-6">
+                        המערכת יוצרת ארכיון חכם של אירועים שקרו לעייני המצלמות כפי שהוגדרו כך שלא תצטרכו לצפות שעות בהקלטות של המצלמה.
+                    </p>
+                    <div class="bg-purple-50 rounded-lg p-6 border-r-4 border-purple-600">
+                        <h3 class="text-xl font-semibold mb-3">תכונות ארכיון חכם:</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 ml-2"></i>
+                                <span>יוצר קטעי וידאו של 30 שניות של אירועים רלוונטיים</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 ml-2"></i>
+                                <span>מתעד מידע על כל קטע לחיפוש קל</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 ml-2"></i>
+                                <span>שומר רק מידע רלוונטי, חוסך מקום אחסון</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 ml-2"></i>
+                                <span>ממשק קל לשימוש למציאת אירועים מהעבר במהירות</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="md:w-1/2 slide-in" style="animation-delay: 0.3s;">
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+                        <div class="bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-500 p-4">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-white text-xl font-bold">דפדפן ארכיון חכם</h3>
+                                <div class="text-white text-sm">
+                                    <i class="fas fa-calendar-alt ml-1"></i> 30 הימים האחרונים
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex mb-6 space-x-4">
+                                <div class="w-1/2">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">סוג אירוע</label>
+                                    <select id="eventFilter" class="w-full rounded-lg border-gray-300 bg-gray-50 py-2 px-3 text-gray-700 focus:border-purple-500 focus:ring-purple-500">
+                                        <option value="All Events">כל האירועים</option>
+                                        <option value="Person Detected">זיהוי אדם</option>
+                                        <option value="Vehicle Detected">זיהוי רכב</option>
+                                        <option value="Restricted Area">אזור מוגבל</option>
+                                        <option value="Weapon Detected">זיהוי נשק</option>
+                                        <option value="Fire Detected">זיהוי אש</option>
+                                        <option value="Animal Detected">זיהוי בעל חיים</option>
+                                    </select>
+                                </div>
+                                <div class="w-1/2">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1 mr-2 ">מצלמה</label>
+                                    <select id="cameraFilter" class="w-full rounded-lg border-gray-300 mr-2 bg-gray-50 py-2 px-3 text-gray-700 focus:border-purple-500 focus:ring-purple-500">
+                                        <option value="All Cameras">כל המצלמות</option>
+                                        <option value="Front Entrance">כניסה ראשית</option>
+                                        <option value="Parking Lot">חניון</option>
+                                        <option value="Warehouse">מחסן</option>
+                                        <option value="Back Door">דלת אחורית</option>
+                                        <option value="Server Room">חדר שרתים</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="archiveContainer" class="space-y-4 mb-6" style="min-height: 500px;">
+                                <!-- Archive Item 1 -->
+                                <div class="archive-item bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition duration-200 cursor-pointer" data-camera="Front Entrance" data-event="Person Detected, Restricted Area" data-index="0">
+                                    <div class="flex">
+                                        <div class="w-32 h-20 bg-gray-900 rounded-lg overflow-hidden relative flex-shrink-0">
+                                            <div class="absolute inset-0 flex items-center justify-center">
+                                                <i class="fas fa-play-circle text-gray-400 text-3xl"></i>
+                                            </div>
+                                        </div>
+                                        <div class="mr-4 flex-grow">
+                                            <div class="flex justify-between">
+                                                <h4 class="font-semibold text-gray-800">אדם באזור מוגבל</h4>
+                                                <span class="text-sm text-gray-500">היום, 14:32</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">מצלמת כניסה ראשית</p>
+                                            <div class="flex items-center mt-2">
+                                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">עדיפות גבוהה</span>
+                                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full mr-2">אדם</span>
+                                                <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full mr-2">אזור מוגבל</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Archive Item 2 -->
+                                <div class="archive-item bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition duration-200 cursor-pointer" data-camera="Warehouse" data-event="Vehicle Detected" data-index="1">
+                                    <div class="flex">
+                                        <div class="w-32 h-20 bg-gray-900 rounded-lg overflow-hidden relative flex-shrink-0">
+                                            <div class="absolute inset-0 flex items-center justify-center">
+                                                <i class="fas fa-play-circle text-gray-400 text-3xl"></i>
+                                            </div>
+                                        </div>
+                                        <div class="mr-4 flex-grow">
+                                            <div class="flex justify-between">
+                                                <h4 class="font-semibold text-gray-800">רכב ברציף טעינה</h4>
+                                                <span class="text-sm text-gray-500">היום, 12:15</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">מצלמת מחסן</p>
+                                            <div class="flex items-center mt-2">
+                                                <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">עדיפות בינונית</span>
+                                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2">רכב</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Archive Item 3 -->
+                                <div class="archive-item bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition duration-200 cursor-pointer" data-camera="Back Door" data-event="Person Detected, Restricted Area" data-index="2">
+                                    <div class="flex">
+                                        <div class="w-32 h-20 bg-gray-900 rounded-lg overflow-hidden relative flex-shrink-0">
+                                            <div class="absolute inset-0 flex items-center justify-center">
+                                                <i class="fas fa-play-circle text-gray-400 text-3xl"></i>
+                                            </div>
+                                        </div>
+                                        <div class="mr-4 flex-grow">
+                                            <div class="flex justify-between">
+                                                <h4 class="font-semibold text-gray-800">חציית גדר דיגיטלית</h4>
+                                                <span class="text-sm text-gray-500">אתמול, 23:47</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">מצלמת דלת אחורית</p>
+                                            <div class="flex items-center mt-2">
+                                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">עדיפות גבוהה</span>
+                                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full mr-2">אדם</span>
+                                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2">גבול</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Archive Item 4 - Person with weapon -->
+                                <div class="archive-item bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition duration-200 cursor-pointer" data-camera="Front Entrance" data-event="Person Detected, Weapon Detected" data-index="3">
+                                    <div class="flex">
+                                        <div class="w-32 h-20 bg-gray-900 rounded-lg overflow-hidden relative flex-shrink-0">
+                                            <div class="absolute inset-0 flex items-center justify-center">
+                                                <i class="fas fa-play-circle text-gray-400 text-3xl"></i>
+                                            </div>
+                                        </div>
+                                        <div class="mr-4 flex-grow">
+                                            <div class="flex justify-between">
+                                                <h4 class="font-semibold text-gray-800">זיהוי אדם חמוש</h4>
+                                                <span class="text-sm text-gray-500">אתמול, 18:22</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">מצלמת כניסה ראשית</p>
+                                            <div class="flex items-center mt-2">
+                                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">עדיפות קריטית</span>
+                                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full mr-2">אדם</span>
+                                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full mr-2">נשק</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Archive Item 5 - Fire Detected -->
+                                <div class="archive-item bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition duration-200 cursor-pointer" data-camera="Server Room" data-event="Fire Detected" data-index="4">
+                                    <div class="flex">
+                                        <div class="w-32 h-20 bg-gray-900 rounded-lg overflow-hidden relative flex-shrink-0">
+                                            <div class="absolute inset-0 flex items-center justify-center">
+                                                <i class="fas fa-play-circle text-gray-400 text-3xl"></i>
+                                            </div>
+                                        </div>
+                                        <div class="mr-4 flex-grow">
+                                            <div class="flex justify-between">
+                                                <h4 class="font-semibold text-gray-800">זיהוי עשן</h4>
+                                                <span class="text-sm text-gray-500">לפני יומיים, 09:17</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">מצלמת חדר שרתים</p>
+                                            <div class="flex items-center mt-2">
+                                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">עדיפות קריטית</span>
+                                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full mr-2">אש</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Archive Item 6 - Animal Detection -->
+                                <div class="archive-item bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition duration-200 cursor-pointer" data-camera="Parking Lot" data-event="Animal Detected" data-index="5">
+                                    <div class="flex">
+                                        <div class="w-32 h-20 bg-gray-900 rounded-lg overflow-hidden relative flex-shrink-0">
+                                            <div class="absolute inset-0 flex items-center justify-center">
+                                                <i class="fas fa-play-circle text-gray-400 text-3xl"></i>
+                                            </div>
+                                        </div>
+                                        <div class="mr-4 flex-grow">
+                                            <div class="flex justify-between">
+                                                <h4 class="font-semibold text-gray-800">כלב באזור החניה</h4>
+                                                <span class="text-sm text-gray-500">לפני 3 ימים, 15:42</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">מצלמת חניון</p>
+                                            <div class="flex items-center mt-2">
+                                                <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">עדיפות נמוכה</span>
+                                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2">בעל חיים</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Archive Item 7 - Multiple detections -->
+                                <div class="archive-item bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition duration-200 cursor-pointer" data-camera="Warehouse" data-event="Person Detected, Vehicle Detected, Restricted Area" data-index="6">
+                                    <div class="flex">
+                                        <div class="w-32 h-20 bg-gray-900 rounded-lg overflow-hidden relative flex-shrink-0">
+                                            <div class="absolute inset-0 flex items-center justify-center">
+                                                <i class="fas fa-play-circle text-gray-400 text-3xl"></i>
+                                            </div>
+                                        </div>
+                                        <div class="mr-4 flex-grow">
+                                            <div class="flex justify-between">
+                                                <h4 class="font-semibold text-gray-800">פעילות טעינה לא מורשית</h4>
+                                                <span class="text-sm text-gray-500">לפני 3 ימים, 02:13</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">מצלמת מחסן</p>
+                                            <div class="flex items-center mt-2">
+                                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">עדיפות גבוהה</span>
+                                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full mr-2">אדם</span>
+                                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2">רכב</span>
+                                                <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full mr-2">אזור מוגבל</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <div id="noResultsMessage" class="text-gray-500 hidden">לא נמצאו אירועים התואמים את הסינון שנבחר</div>
+                            </div>
+                            <div class="text-center mt-4">
+                                <button id="viewAllArchivesBtn" class="text-purple-600 font-medium hover:text-purple-800 transition duration-200">
+                                    צפה בכל הארכיון <i class="fas fa-chevron-left mr-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-900 text-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16 slide-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">צור קשר</h2>
+                <p class="text-lg text-gray-300 max-w-3xl mx-auto">
+                    מוכנים לשדרג את האבטחה שלכם עם בינה מלאכותית? צרו איתנו קשר כדי ללמוד עוד על Pixelligence וכיצד היא יכולה להועיל לארגון שלכם.
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pl-8 slide-in">
+                    <form id="contactForm" class="bg-white bg-opacity-5 backdrop-blur-sm rounded-lg p-8">
+                        <div class="mb-6">
+                            <label class="block text-gray-300 mb-2" for="name">שם מלא</label>
+                            <input type="text" id="name" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                            <span id="nameError" class="text-red-500 text-xs hidden">נדרש למלא שם.</span>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-300 mb-2" for="email">כתובת אימייל</label>
+                            <input type="email" id="email" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                            <span id="emailError" class="text-red-500 text-xs hidden">נדרש אימייל חוקי.</span>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-300 mb-2" for="message">הודעה</label>
+                            <textarea id="message" rows="5" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required></textarea>
+                            <span id="messageError" class="text-red-500 text-xs hidden">ההודעה לא יכולה להיות ריקה.</span>
+                        </div>
+                        <button id="sendMessageBtn" type="submit" class="w-full btn-primary" disabled>
+                            <i class="fas fa-paper-plane ml-2"></i> שלח הודעה
+                        </button>
+                    </form>
+                </div>
+                <div class="md:w-1/2 slide-in" style="animation-delay: 0.3s;">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                        
+                        <!-- FAQ -->
+                        <div class="col-span-2 bg-white bg-opacity-5 backdrop-blur-sm rounded-lg p-6">
+                            <h3 class="text-xl font-semibold mb-4">שאלות נפוצות</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-medium text-cyan-400 mb-1">איזו חומרה אני צריך?</h4>
+                                    <p class="text-gray-300 text-sm">Pixelligence עובדת עם מצלמות האבטחה הקיימות שלך, דורשת רק את שרת העיבוד שלנו להתקנה.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-cyan-400 mb-1">האם נדרש חיבור לאינטרנט?</h4>
+                                    <p class="text-gray-300 text-sm">לא, המערכת יכולה לפעול לחלוטין ברשת הפנימית שלך ללא חיבור לאינטרנט.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-cyan-400 mb-1">מה מידת הדיוק של הזיהוי?</h4>
+                                    <p class="text-gray-300 text-sm">הבינה המלאכותית שלנו בדרך כלל משיגה דיוק של 85-95% בהתאם לתנאים, ומשתפרת באופן מתמיד לאורך זמן.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-cyan-400 mb-1">גישה לעדכונים ושדרוגים</h4>
+                                    <p class="text-gray-300 text-sm">ברגע שעדכונים ותכונות חדשות יהיו מוכנים להפצה, תוכלו ליהנות מהגרסאות החדשות בחינם.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <img src="./assets/logo.png" alt="Pixelligence Logo" class="h-10 w-10 ml-3">
+                        <h1 class="text-2xl font-bold gradient-text">PIXELLIGENCE</h1>
+                       
+                     </div>
+                    <p class="text-gray-400 mt-2">מערכת אבטחה מבוססת בינה מלאכותית</p>
+                </div>
+                
+            </div>
+            <hr class="border-gray-800 my-6">
+            <div class="text-center text-gray-400 text-sm">
+                <p>&copy; 2023 Pixelligence. כל הזכויות שמורות.</p>
+                <p class="mt-2">מערכת אבטחה מתקדמת מבוססת בינה מלאכותית לזיהוי וניתוח איומים בזמן אמת.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.slide-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // Initialize animations on load
+        window.addEventListener('load', revealOnScroll);
+        
+        // Reveal elements on scroll
+        window.addEventListener('scroll', revealOnScroll);
+
+        // Feature tabs functionality
+        const featureTabs = document.querySelectorAll('.feature-tab');
+        
+        featureTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Don't process clicks on future tabs
+                if (tab.id && tab.id.startsWith('future-')) {
+                    return;
+                }
+                
+                // Remove active class from all tabs
+                featureTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Hide all content
+                const contents = document.querySelectorAll('.feature-content');
+                contents.forEach(content => content.classList.remove('active'));
+                
+                // Show related content
+                const tabId = tab.getAttribute('data-tab');
+                if (tabId) {
+                    const content = document.getElementById(tabId);
+                    if (content) {
+                        content.classList.add('active');
+                    }
+                }
+            });
+        });
+
+        // Initialize counters
+        function initializeCounters() {
+            const counters = document.querySelectorAll('.counter');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000; // Animation duration in milliseconds
+                const step = target / (duration / 16); // 60fps
+                
+                let current = 0;
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                const counterTop = counter.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (counterTop < windowHeight) {
+                    updateCounter();
+                } else {
+                    window.addEventListener('scroll', function scrollHandler() {
+                        const counterTop = counter.getBoundingClientRect().top;
+                        if (counterTop < windowHeight) {
+                            updateCounter();
+                            window.removeEventListener('scroll', scrollHandler);
+                        }
+                    });
+                }
+            });
+        }
+        
+        // Initialize progress bars
+        function initializeProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            
+            progressBars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                
+                // Reset width
+                bar.style.width = '0';
+                
+                const barTop = bar.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (barTop < windowHeight) {
+                    setTimeout(() => {
+                        bar.style.width = targetWidth;
+                    }, 300);
+                } else {
+                    window.addEventListener('scroll', function scrollHandler() {
+                        const barTop = bar.getBoundingClientRect().top;
+                        if (barTop < windowHeight) {
+                            setTimeout(() => {
+                                bar.style.width = targetWidth;
+                            }, 300);
+                            window.removeEventListener('scroll', scrollHandler);
+                        }
+                    });
+                }
+            });
+        }
+        
+        // Initialize animations
+        window.addEventListener('load', () => {
+            revealOnScroll();
+            initializeCounters();
+            initializeProgressBars();
+            initializeSmartArchive();
+        });
+
+        function initializeSmartArchive() {
+            const cameraFilter = document.getElementById('cameraFilter');
+            const eventFilter = document.getElementById('eventFilter');
+            const archiveItems = document.querySelectorAll('.archive-item');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const viewAllArchivesBtn = document.getElementById('viewAllArchivesBtn');
+            
+            let showAllItems = false;
+            
+            if (!cameraFilter || !eventFilter) return;
+            
+            function filterArchiveItems() {
+                const selectedCamera = cameraFilter.value;
+                const selectedEvent = eventFilter.value;
+                
+                let visibleCount = 0;
+                
+                archiveItems.forEach(item => {
+                    const camera = item.dataset.camera;
+                    const eventTypes = item.dataset.event.split(',').map(e => e.trim());
+                    const index = parseInt(item.dataset.index);
+                    
+                    let cameraMatch = selectedCamera === 'All Cameras' || camera === selectedCamera;
+                    let eventMatch = selectedEvent === 'All Events' || eventTypes.includes(selectedEvent);
+                    let indexMatch = showAllItems || index < 4;
+                    
+                    if (cameraMatch && eventMatch && indexMatch) {
+                        item.classList.remove('hidden');
+                        visibleCount++;
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+                
+                // Show "no results" message if nothing matches
+                if (visibleCount === 0) {
+                    noResultsMessage.classList.remove('hidden');
+                } else {
+                    noResultsMessage.classList.add('hidden');
+                }
+                
+                // Update button text based on current state
+                updateViewAllButton();
+            }
+            
+            function updateViewAllButton() {
+                if (showAllItems) {
+                    viewAllArchivesBtn.innerHTML = 'הצג פחות <i class="fas fa-chevron-up mr-1"></i>';
+                } else {
+                    viewAllArchivesBtn.innerHTML = 'צפה בכל הארכיון <i class="fas fa-chevron-left mr-1"></i>';
+                }
+            }
+            
+            function toggleViewAll() {
+                showAllItems = !showAllItems;
+                filterArchiveItems();
+            }
+            
+            // Add event listeners
+            cameraFilter.addEventListener('change', filterArchiveItems);
+            eventFilter.addEventListener('change', filterArchiveItems);
+            viewAllArchivesBtn.addEventListener('click', toggleViewAll);
+            
+            // Initial filter - only show first 4 items
+            filterArchiveItems();
+        }
+
+        // Validate email pattern
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        
+      
+
+        // Validate the contact form fields
+        function validateForm() {
+            let valid = true;
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const messageError = document.getElementById('messageError');
+            
+            if(nameInput.value.trim() === '') {
+                nameError.classList.remove('hidden');
+                valid = false;
+            } else {
+                nameError.classList.add('hidden');
+            }
+            if(emailInput.value.trim() === '' || !validateEmail(emailInput.value.trim())) {
+                emailError.classList.remove('hidden');
+                valid = false;
+            } else {
+                emailError.classList.add('hidden');
+            }
+            if(messageInput.value.trim() === '') {
+                messageError.classList.remove('hidden');
+                valid = false;
+            } else {
+                messageError.classList.add('hidden');
+            }
+            document.getElementById('sendMessageBtn').disabled = !valid;
+            return valid;
+        }
+        
+        // Attach real-time validation
+        document.getElementById('name').addEventListener('input', validateForm);
+        document.getElementById('email').addEventListener('input', validateForm);
+        document.getElementById('message').addEventListener('input', validateForm);
+        
+        // Enhanced contact form submission with rate-limiting and validation
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Rate limiting: 5 emails per minute, 20 per hour
+            const now = Date.now();
+            const minute = 60 * 1000;
+            const hour = 60 * minute;
+            let minuteCounts = JSON.parse(localStorage.getItem('minuteCounts') || '[]');
+            let hourCounts = JSON.parse(localStorage.getItem('hourCounts') || '[]');
+            
+            minuteCounts = minuteCounts.filter(time => now - time < minute);
+            hourCounts = hourCounts.filter(time => now - time < hour);
+            
+            if (minuteCounts.length >= 5) {
+                alert('Too many emails sent in the last minute. Please wait a moment.');
+                return;
+            }
+            if (hourCounts.length >= 20) {
+                alert('Too many emails sent in the last hour. Please try again later.');
+                return;
+            }
+            
+            minuteCounts.push(now);
+            hourCounts.push(now);
+            localStorage.setItem('minuteCounts', JSON.stringify(minuteCounts));
+            localStorage.setItem('hourCounts', JSON.stringify(hourCounts));
+            
+            // Construct email body and open user's mail client via mailto link
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0AMessage: ${message}`;
+            const mailtoLink = `mailto:matanpixelligence@gmail.com?subject=Contact Form Submission&body=${body}`;
+            window.location.href = mailtoLink;
+        });
+    </script>
+</body>
+</html>
