@@ -362,6 +362,47 @@
                 left: 0;
             }
         }
+
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 1;
+            
+            font-size: 14px;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -371,12 +412,13 @@
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
                     <img src="../assets/logo.png" alt="Pixelligence Logo" class="h-10 w-10 mr-3">
-                    <h1 class="text-2xl font-bold gradient-text">PIXELLIGENCE</h1>
+                    <a href="#home" class="nav-link">
+                        <h1 class="text-2xl font-bold gradient-text">PIXELLIGENCE</h1>
+                    </a>
                 </div>
                 <div class="hidden md:flex space-x-6">
-                    <a href="#home" class="nav-link">Home</a>
                     <a href="#features" class="nav-link">Features</a>
-                    <a href="#capabilities" class="nav-link">Capabilities</a>
+                    <a href="#capabilities" class="nav-link">Detection Catalog</a>
                     <a href="#how-it-works" class="nav-link">How It Works</a>
                     <a href="#contact" class="nav-link">Contact</a>
                 </div>
@@ -389,7 +431,6 @@
             </div>
             <!-- Mobile menu -->
             <div id="mobile-menu" class="md:hidden hidden py-4">
-                <a href="#home" class="block py-2 text-center nav-link">Home</a>
                 <a href="#features" class="block py-2 text-center nav-link">Features</a>
                 <a href="#capabilities" class="block py-2 text-center nav-link">Capabilities</a>
                 <a href="#how-it-works" class="block py-2 text-center nav-link">How It Works</a>
@@ -413,8 +454,9 @@
                         <button class="btn-primary"> <a href="#contact">
                             <i class="fas fa-shield-alt mr-2"></i> Get Started</a>
                         </button>
-                        <button class="btn-secondary">
+                        <button class="btn-secondary tooltip">
                             <i class="fas fa-play mr-2"></i> Watch Demo
+                            <span class="tooltiptext">Coming Soon</span>
                         </button>
                     </div>
                 </div>
@@ -476,10 +518,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.1s;">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon mr-3">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Real-Time Security</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Real-Time Security</h3>
                     <p class="text-gray-700 mb-4">
                         Advanced AI that analyzes live video feeds from existing security cameras to detect threats instantly.
                     </p>
@@ -487,10 +531,12 @@
 
                 <!-- Feature 2 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.2s;">
-                    <div class="feature-icon">
-                        <i class="fas fa-bell"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon mr-3">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Instant Alerts</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Instant Alerts</h3>
                     <p class="text-gray-700 mb-4">
                         Receive immediate notifications with video clips of detected incidents directly to your mobile device.
                     </p>
@@ -498,10 +544,12 @@
 
                 <!-- Feature 3 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.3s;">
-                    <div class="feature-icon">
-                        <i class="fas fa-plug"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon mr-3">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Devices Integration via API</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">API Integration</h3>
                     <p class="text-gray-700 mb-4">
                         System can trigger physical responses by making API calls to gates, alarms, speakers, lights, and other devices on your network.
                     </p>
@@ -509,10 +557,12 @@
 
                 <!-- Feature 4 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.4s;">
-                    <div class="feature-icon">
-                        <i class="fas fa-server"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon mr-3">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Closed Circuit</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Closed Circuit</h3>
                     <p class="text-gray-700 mb-4">
                         Can operate on a closed network without internet, keeping all data securely within your organization.
                     </p>
@@ -520,10 +570,12 @@
 
                 <!-- Feature 5 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.5s;">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon mr-3">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Reporting & Analytics</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Reporting & Analytics</h3>
                     <p class="text-gray-700 mb-4">
                         Comprehensive reports to help identify patterns and gain insights about activity in your organization.
                     </p>
@@ -531,12 +583,27 @@
 
                 <!-- Feature 6 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.6s;">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon mr-3">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Smart Archive</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Smart Archive</h3>
                     <p class="text-gray-700 mb-4">
                         Intelligently archives events, creating 30-second clips with metadata instead of hours of footage.
+                    </p>
+                </div>
+
+                <!-- Feature 7 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.7s;">
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon mr-3">
+                            <i class="fas fa-video-slash"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Camera Monitoring</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        Immediate alert if a camera is disconnected, damaged, or malfunctioning. The system will automatically recover and resume monitoring once the camera is available again.
                     </p>
                 </div>
             </div>
@@ -681,7 +748,7 @@
                                 <h4 class="font-semibold mb-2">Key Benefits:</h4>
                                 <ul class="list-disc pl-5 space-y-2">
                                     <li>Early warning system for fire emergencies</li>
-                                    <li>Works alongside traditional fire alarms</li>
+                              
                                     <li>Visual verification to reduce false alarms</li>
                                     <li>Precise location information for faster response</li>
                                 </ul>
@@ -950,10 +1017,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Tool 1 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.1s;">
-                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
-                        <i class="fas fa-border-all"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500 mr-3">
+                            <i class="fas fa-border-all"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Digital Fence</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Digital Fence</h3>
                     <p class="text-gray-700 mb-4">
                         Create virtual boundary lines for cameras that trigger immediate alerts when objects cross them.
                     </p>
@@ -961,10 +1030,12 @@
 
                 <!-- Tool 2 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.2s;">
-                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
-                        <i class="fas fa-ban"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500 mr-3">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Restricted Zones</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Restricted Zones</h3>
                     <p class="text-gray-700 mb-4">
                         Define specific areas within the camera view that are off-limits, generating alerts when entered.
                     </p>
@@ -972,10 +1043,12 @@
 
                 <!-- Tool 3 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.3s;">
-                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
-                        <i class="fas fa-calculator"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500 mr-3">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Object Counting</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Object Counting</h3>
                     <p class="text-gray-700 mb-4">
                         Count separate objects in real-time and use this data for various applications and monitoring.
                     </p>
@@ -983,10 +1056,12 @@
 
                 <!-- Tool 4 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.4s;">
-                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
-                        <i class="fas fa-user-shield"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500 mr-3">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Digital Guard Post</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Digital Guard Post</h3>
                     <p class="text-gray-700 mb-4">
                         Ensure a constant presence at key locations by alerting when an area is left unmanned.
                     </p>
@@ -994,10 +1069,12 @@
 
                 <!-- Tool 5 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.5s;">
-                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
-                        <i class="fas fa-sort-amount-up"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500 mr-3">
+                            <i class="fas fa-sort-amount-up"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Smart Counters</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Smart Counters</h3>
                     <p class="text-gray-700 mb-4">
                         Monitor entrances and exits across multiple cameras to track occupancy in buildings or parking lots.
                     </p>
@@ -1005,10 +1082,12 @@
 
                 <!-- Tool 6 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.6s;">
-                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
-                        <i class="fas fa-archive"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500 mr-3">
+                            <i class="fas fa-archive"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Smart Archive</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Smart Archive</h3>
                     <p class="text-gray-700 mb-4">
                         Creates clips of relevant events rather than requiring you to search through hours of footage.
                     </p>
@@ -1567,18 +1646,6 @@
                                 </div>
                                 
                                 <!-- Archive Item 7 - Multiple detections -->
-                                <div class="archive-item bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition duration-200 cursor-pointer" data-camera="Warehouse" data-event="Person Detected, Vehicle Detected, Restricted Area" data-index="6">
-                                    <div class="flex">
-                                        <div class="w-32 h-20 bg-gray-900 rounded-lg overflow-hidden relative flex-shrink-0">
-                                            <div class="absolute inset-0 flex items-center justify-center">
-                                                <i class="fas fa-play-circle text-gray-400 text-3xl"></i>
-                                            </div>
-                                        </div>
-                                        <div class="ml-4 flex-grow">
-                                            <div class="flex justify-between">
-                                                <h4 class="font-semibold text-gray-800">Unauthorized Loading Activity</h4>
-                                                <span class="text-sm text-gray-500">3 days ago, 02:13</span>
-                                            </div>
                                             <p class="text-sm text-gray-600 mt-1">Warehouse Camera</p>
                                             <div class="flex items-center mt-2">
                                                 <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">High Priority</span>
@@ -1737,30 +1804,41 @@
 
         // Feature tabs functionality
         const featureTabs = document.querySelectorAll('.feature-tab');
-        
+
         featureTabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 // Don't process clicks on future tabs
                 if (tab.id && tab.id.startsWith('future-')) {
+                    // Optionally add some visual feedback that it's not clickable yet
                     return;
                 }
-                
+
                 // Remove active class from all tabs
                 featureTabs.forEach(t => t.classList.remove('active'));
-                
+
                 // Add active class to clicked tab
                 tab.classList.add('active');
-                
+
                 // Hide all content
                 const contents = document.querySelectorAll('.feature-content');
                 contents.forEach(content => content.classList.remove('active'));
-                
+
                 // Show related content
                 const tabId = tab.getAttribute('data-tab');
                 if (tabId) {
-                    const content = document.getElementById(tabId);
-                    if (content) {
-                        content.classList.add('active');
+                    const contentElement = document.getElementById(tabId);
+                    if (contentElement) {
+                        contentElement.classList.add('active');
+                    }
+                    // Smooth scroll to the capabilities section
+                    const capabilitiesSection = document.getElementById('capabilities');
+                    if (capabilitiesSection) {
+                        const navHeight = document.querySelector('nav').offsetHeight || 0;
+                        const offsetTop = capabilitiesSection.offsetTop - navHeight - 20; // Adjust offset as needed
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
                     }
                 }
             });
@@ -1913,8 +1991,8 @@
         function validateEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
-        
-        // Validate the contact form fields
+
+        // Validate form fields
         function validateForm() {
             let valid = true;
             const nameInput = document.getElementById('name');
@@ -1951,12 +2029,18 @@
         document.getElementById('email').addEventListener('input', validateForm);
         document.getElementById('message').addEventListener('input', validateForm);
         
-        // Enhanced contact form submission with rate-limiting and validation
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
+        // Contact form submission to Firebase Cloud Function
+        document.getElementById('contactForm').addEventListener('submit', async function(event) {
             event.preventDefault();
             if (!validateForm()) {
                 return;
             }
+            
+            // Get form data
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const text = document.getElementById('message').value.trim();
+            const submitButton = document.getElementById('sendMessageBtn');
             
             // Rate limiting: 5 emails per minute, 20 per hour
             const now = Date.now();
@@ -1969,26 +2053,55 @@
             hourCounts = hourCounts.filter(time => now - time < hour);
             
             if (minuteCounts.length >= 5) {
-                alert('Too many emails sent in the last minute. Please wait a moment.');
+                alert('Too many messages sent in the last minute. Please wait a moment.');
                 return;
             }
             if (hourCounts.length >= 20) {
-                alert('Too many emails sent in the last hour. Please try again later.');
+                alert('Too many messages sent in the last hour. Please try again later.');
                 return;
             }
             
-            minuteCounts.push(now);
-            hourCounts.push(now);
-            localStorage.setItem('minuteCounts', JSON.stringify(minuteCounts));
-            localStorage.setItem('hourCounts', JSON.stringify(hourCounts));
+            // Show loading state
+            submitButton.disabled = true;
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i> Sending...';
             
-            // Construct email body and open user's mail client via mailto link
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-            const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0AMessage: ${message}`;
-            const mailtoLink = `mailto:matanpixelligence@gmail.com?subject=Contact Form Submission&body=${body}`;
-            window.location.href = mailtoLink;
+            try {
+                // Send data to Firebase Cloud Function
+                const response = await fetch('https://formsubmit.co/091cf03d05c2786cd7270922d7cb7fd1', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, text })
+                });
+                
+                if (response.ok) {
+                    // Update rate limiting counters on success
+                    minuteCounts.push(now);
+                    hourCounts.push(now);
+                    localStorage.setItem('minuteCounts', JSON.stringify(minuteCounts));
+                    localStorage.setItem('hourCounts', JSON.stringify(hourCounts));
+                    
+                    // Show success message
+                    alert('Your message has been sent successfully! We will get back to you soon.');
+                    
+                    // Reset form
+                    document.getElementById('contactForm').reset();
+                } else {
+                    // Show error message
+                    const errorData = await response.text();
+                    console.error('Error sending email:', errorData);
+                    alert('An error occurred while sending your message. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error sending email:', error);
+                alert('An error occurred while sending your message. Please try again later.');
+            } finally {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+            }
         });
     </script>
 </body>

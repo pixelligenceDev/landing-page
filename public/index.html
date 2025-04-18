@@ -362,6 +362,47 @@
             margin-right: 0;
             margin-left: 0.5rem;
         }
+
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 1;
+            
+            font-size: 14px;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -371,12 +412,13 @@
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
                     <img src="./assets/logo.png" alt="Pixelligence Logo" class="h-10 w-10 ml-3">
-                    <h1 class="text-2xl font-bold gradient-text">PIXELLIGENCE</h1>
+                    <a href="#home" class="nav-link">
+                        <h1 class="text-2xl font-bold gradient-text">PIXELLIGENCE</h1>
+                    </a>
                 </div>
                 <div class="hidden md:flex space-x-6">
-                    <a href="#home" class="nav-link">בית</a>
-                    <a href="#features" class="nav-link">תכונות</a>
-                    <a href="#capabilities" class="nav-link">יכולות</a>
+                    <a href="#features" class="nav-link">תכונות מרכזיות</a>
+                    <a href="#capabilities" class="nav-link">קטלוג זיהוי</a>
                     <a href="#how-it-works" class="nav-link">איך זה עובד</a>
                     <a href="#contact" class="nav-link">צור קשר</a>
                 </div>
@@ -391,9 +433,8 @@
             </div>
             <!-- Mobile menu -->
             <div id="mobile-menu" class="md:hidden hidden py-4">
-                <a href="#home" class="block py-2 text-center nav-link">בית</a>
-                <a href="#features" class="block py-2 text-center nav-link">תכונות</a>
-                <a href="#capabilities" class="block py-2 text-center nav-link">יכולות</a>
+                <a href="#features" class="block py-2 text-center nav-link">תכונות מרכזיות</a>
+                <a href="#capabilities" class="block py-2 text-center nav-link">כלים דיגיטליים</a>
                 <a href="#how-it-works" class="block py-2 text-center nav-link">איך זה עובד</a>
                 <a href="#contact" class="block py-2 text-center nav-link">צור קשר</a>
             </div>
@@ -415,8 +456,9 @@
                         <button class="btn-primary mr-0 ml-4"> <a href="#contact">
                             <i class="fas fa-shield-alt ml-2"></i> התחל</a>
                         </button>
-                        <button class="btn-secondary">
+                        <button class="btn-secondary tooltip">
                             <i class="fas fa-play ml-2"></i> צפה בהדגמה
+                            <span class="tooltiptext">בקרוב</span>
                         </button>
                     </div>
                 </div>
@@ -469,7 +511,7 @@
     <section id="features" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4 md:px-8">
             <div class="text-center mb-16 slide-in">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">תכונות מפתח</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">תכונות מרכזיות</h2>
                 <p class="text-lg text-gray-700 max-w-3xl mx-auto">
                     מערכת האבטחה המתקדמת שלנו מבוססת בינה מלאכותית מציעה ניטור והתראות בזמן אמת באמצעות מגוון רחב של תכונות חכמות.
                 </p>
@@ -478,10 +520,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.1s;">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon ml-3">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">אבטחה בזמן אמת</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">אבטחה בזמן אמת</h3>
                     <p class="text-gray-700 mb-4">
                         בינה מלאכותית מתקדמת המנתחת שידורי וידאו חיים ממצלמות אבטחה קיימות כדי לזהות איומים באופן מיידי.
                     </p>
@@ -489,10 +533,12 @@
 
                 <!-- Feature 2 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.2s;">
-                    <div class="feature-icon">
-                        <i class="fas fa-bell"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon ml-3">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">התראות מיידיות</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">התראות מיידיות</h3>
                     <p class="text-gray-700 mb-4">
                         קבלת התראות מיידיות עם קטעי וידאו של אירועים שזוהו ישירות למכשיר הנייד שלך.
                     </p>
@@ -500,10 +546,12 @@
 
                 <!-- Feature 3 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.3s;">
-                    <div class="feature-icon">
-                        <i class="fas fa-plug"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon ml-3">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">אינטגרציה לכלים ומכשירים</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">אינטגרציה עם API</h3>
                     <p class="text-gray-700 mb-4">
                         המערכת יכולה להפעיל תגובות פיזיות על ידי ביצוע קריאות API לשערים, אזעקות, רמקולים, תאורה ומכשירים אחרים ברשת הפנימית.
                     </p>
@@ -511,10 +559,12 @@
 
                 <!-- Feature 4 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.4s;">
-                    <div class="feature-icon">
-                        <i class="fas fa-server"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon ml-3">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">מעגל סגור</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">מעגל סגור</h3>
                     <p class="text-gray-700 mb-4">
                         המערכת יכולה לעבוד במעגל סגור, ללא אינטרנט, ולמעשה להיות חלק מהרשת הפנימית של הארגון שלכם.
                     </p>
@@ -522,23 +572,40 @@
 
                 <!-- Feature 5 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.5s;">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon ml-3">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">דוחות ואנליטיקה</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">דוחות וניתוח</h3>
                     <p class="text-gray-700 mb-4">
-                        המערכת תדע לייצר דוחות המתארים שהתרחש לאורך הזמן, ובכך תוכלו ללמוד עוד על המתרחש בארגונכם.
+                       בסוף כל יום המערכת תדע לייצר דוחות המתארים את שהתרחש במהלך היום, כולל כמות האנשים שזוהו, כלי רכב, אירועים חריגים ועוד.
                     </p>
                 </div>
 
                 <!-- Feature 6 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.6s;">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon ml-3">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">ארכיון חכם</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">ארכיון חכם</h3>
                     <p class="text-gray-700 mb-4">
                         המערכת יוצרת ארכיון חכם של אירועים שקרו לעייני המצלמות כפי שהוגדרו.
+                    </p>
+                </div>
+
+                <!-- Feature 7 -->
+                <div class="card bg-white p-6 slide-in" style="animation-delay: 0.7s;">
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon ml-3">
+                            <i class="fas fa-video-slash"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">ניטור תקינות מצלמות</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        התראה מיידית במקרה של ניתוק, נזק או תקלה במצלמה. המערכת תחזור לנטר את המצלמה באופן אוטומטי ברגע שהיא זמינה שוב.
                     </p>
                 </div>
             </div>
@@ -549,7 +616,7 @@
     <section id="capabilities" class="py-16">
         <div class="container mx-auto px-4 md:px-8">
             <div class="text-center mb-16 slide-in">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">יכולות זיהוי</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">קטלוג זיהוי</h2>
                 <p class="text-lg text-gray-700 max-w-3xl mx-auto">
                     Pixelligence מגיעה עם מגוון מקיף של יכולות זיהוי, עם תכונות נוספות המתווספות באופן קבוע.
                 </p>
@@ -586,8 +653,6 @@
                                 <i class="fas fa-cogs ml-2"></i> אימון מותאם אישית
                             </div>
                         </div>
-                        
-                        <hr class="my-6 border-purple-200">
                         
                         <h3 class="text-xl font-bold mb-4 text-center gradient-text">בקרוב</h3>
                         <div class="space-y-3">
@@ -677,15 +742,16 @@
                                 <h3 class="text-2xl font-bold">זיהוי אש ועשן</h3>
                             </div>
                             <p class="text-gray-700 mb-6">
-                                גילוי מוקדם של אש ועשן יכול למנוע אסונות. המערכת שלנו יכולה לזהות את הסימנים הראשונים של אש או עשן ולהתריע באופן מיידי, ובכך להציל חיים ורכוש.
+                                גילוי מוקדם של אש ועשן יכול למנוע אסונות. המערכת שלנו יכולה לזהות את הסימנים הראשונים של אש או עשן ולהתריע באופן מיידי, ובכך להציל חיים ורכוש. 
                             </p>
                             <div class="bg-gray-100 rounded-lg p-4 mb-6">
                                 <h4 class="font-semibold mb-2">יתרונות מרכזיים:</h4>
                                 <ul class="list-disc pr-5 space-y-2">
                                     <li>מערכת התראה מוקדמת למקרי חירום של אש</li>
-                                    <li>עובדת לצד אזעקות אש מסורתיות</li>
+                                
                                     <li>אימות ויזואלי להפחתת התראות שווא</li>
                                     <li>מידע מיקום מדויק לתגובה מהירה יותר</li>
+                                    <li>אכיפת אזורים ללא עישון וניטור עישון במקומות אסורים</li>
                                 </ul>
                             </div>
                             <div class="bg-red-50 rounded-lg p-4 border-r-4 border-red-600">
@@ -836,19 +902,19 @@
                             <div class="bg-gray-100 rounded-lg p-4 mb-6">
                                 <h4 class="font-semibold mb-2">תהליך פיתוח מודל מותאם אישית:</h4>
                                 <ul class="list-disc pr-5 space-y-2">
-                                    <li><span class="font-medium">איסוף נתונים:</span> אנו אוספים נתונים ספציפיים למקרה השימוש שלך, אם מהמערכות הקיימות שלך או דרך תהליך איסוף מבוקר</li>
-                                    <li><span class="font-medium">אימון מודל:</span> מומחי הבינה המלאכותית שלנו בונים ומאמנים מודל ייחודי שתוכנן בלעדית לדרישות הזיהוי שלך</li>
-                                    <li><span class="font-medium">בדיקה וליטוש:</span> המודל עובר בדיקות נרחבות בסביבה שלך כדי להבטיח ביצועים אופטימליים</li>
-                                    <li><span class="font-medium">פריסה ואינטגרציה:</span> המודל המותאם אישית משולב במערכת ה-Pixelligence שלך</li>
+                                    <li><span class="font-medium">ייעוץ ראשוני:</span> הבנת הצרכים והאתגרים הייחודיים שלך.</li>
+                                    <li><span class="font-medium">איסוף נתונים:</span> אנו אוספים נתונים ספציפיים למקרה השימוש שלך, אם מהמערכות הקיימות שלך או דרך תהליך איסוף מבוקר.</li>
+                                    <li><span class="font-medium">פיתוח מודל:</span> אימון ובדיקה של מודל AI מותאם אישית.</li>
+                                    <li><span class="font-medium">הטמעה ותמיכה:</span> שילוב המודל במערכת שלך ומתן תמיכה שוטפת.</li>
                                 </ul>
                             </div>
                             <div class="bg-yellow-50 rounded-lg p-4 border-r-4 border-yellow-600">
                                 <div class="flex items-center">
-                                    <i class="fas fa-tag text-yellow-600 ml-2"></i>
-                                    <span class="font-semibold">מודל תמחור מותאם אישית:</span>
+                                    <i class="fas fa-lightbulb text-yellow-600 ml-2"></i>
+                                    <span class="font-semibold">פתרון ייעודי:</span>
                                 </div>
                                 <p class="text-gray-700 mt-2">
-                                    אימון מותאם אישית מתומחר בצורה שונה מהחבילות הסטנדרטיות שלנו, כאשר העלויות משתנות בהתאם למורכבות אתגר הזיהוי, זמינות הנתונים ודרישות היישום. צור איתנו קשר להתייעצות אישית והצעת מחיר המותאמת לצרכים הספציפיים שלך.
+                                    צור קשר כדי לדון כיצד אימון מותאם אישית יכול לפתור את אתגרי האבטחה הספציפיים שלך.
                                 </p>
                             </div>
                         </div>
@@ -862,19 +928,8 @@
                                 <h3 class="text-2xl font-bold">זיהוי פנים <span class="text-sm font-normal text-purple-600 mr-2">בקרוב</span></h3>
                             </div>
                             <p class="text-gray-700 mb-6">
-                                תכונת זיהוי הפנים הקרובה שלנו תאפשר זיהוי אנשים, בקרת גישה וזיהוי אישים חשובים בדיוק גבוה ותוך עמידה בתקנות פרטיות.
+                                יכולת זיהוי פנים מתקדמת תאפשר זיהוי מאובטח של אנשים מורשים, מעקב אחר אנשים חשודים ושיפור בקרת גישה.
                             </p>
-                            <div class="bg-gray-100 rounded-lg p-4 mb-6">
-                                <h4 class="font-semibold mb-2">יישומים:</h4>
-                                <ul class="list-disc pr-5 space-y-2">
-                                    <li>זיהוי אנשים לא מורשים</li>
-                                    <li>מעקב נוכחות אוטומטי לעובדים המגיעים ועוזבים</li>
-                                    <li>התראות מיידיות כאשר מזוהים אנשים מושבתים או מרשימת המעקב</li>
-                                    <li>ניהול זמן ונוכחות עובדים</li>
-                                    <li>זיהוי אנשים חשובים</li>
-                                    <li>אינטגרציה עם מערכות בקרת גישה</li>
-                                </ul>
-                            </div>
                             <div class="bg-purple-50 rounded-lg p-4 mb-4">
                                 <div class="flex items-center">
                                     <i class="fas fa-clock text-purple-600 ml-2"></i>
@@ -955,10 +1010,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Tool 1 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.1s;">
-                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
-                        <i class="fas fa-border-all"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500 ml-3">
+                            <i class="fas fa-border-all"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">גדר דיגיטלית</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">גדר דיגיטלית</h3>
                     <p class="text-gray-700 mb-4">
                         יצירת קווי גבול וירטואליים למצלמות המפעילים התראות מיידיות כאשר אובייקטים חוצים אותם.
                     </p>
@@ -966,10 +1023,12 @@
 
                 <!-- Tool 2 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.2s;">
-                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
-                        <i class="fas fa-ban"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500 ml-3">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">אזורים מוגבלים</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">אזורים מוגבלים</h3>
                     <p class="text-gray-700 mb-4">
                         הגדרת אזורים ספציפיים בתצוגת המצלמה שהם מחוץ לתחום, יוצרים התראות בעת כניסה אליהם.
                     </p>
@@ -977,10 +1036,12 @@
 
                 <!-- Tool 3 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.3s;">
-                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
-                        <i class="fas fa-calculator"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500 ml-3">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">ספירת אובייקטים</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">ספירת אובייקטים</h3>
                     <p class="text-gray-700 mb-4">
                         ספירת אובייקטים נפרדים בזמן אמת ושימוש בנתונים אלה למגוון יישומים וניטור.
                     </p>
@@ -988,10 +1049,12 @@
 
                 <!-- Tool 4 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.4s;">
-                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
-                        <i class="fas fa-user-shield"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500 ml-3">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">עמדת שמירה דיגיטלית</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">עמדת שמירה דיגיטלית</h3>
                     <p class="text-gray-700 mb-4">
                         הבטחת נוכחות קבועה במיקומים מרכזיים על ידי התראה כאשר אזור נשאר ללא איוש.
                     </p>
@@ -999,10 +1062,12 @@
 
                 <!-- Tool 5 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.5s;">
-                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
-                        <i class="fas fa-sort-amount-up"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500 ml-3">
+                            <i class="fas fa-sort-amount-up"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">מונים חכמים</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">מונים חכמים</h3>
                     <p class="text-gray-700 mb-4">
                         ניטור כניסות ויציאות במספר מצלמות כדי לעקוב אחר תפוסה בבניינים או במגרשי חניה.
                     </p>
@@ -1010,10 +1075,12 @@
 
                 <!-- Tool 6 -->
                 <div class="card bg-white p-6 slide-in" style="animation-delay: 0.6s;">
-                    <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500">
-                        <i class="fas fa-archive"></i>
+                    <div class="flex items-center mb-3">
+                        <div class="feature-icon bg-gradient-to-r from-purple-600 to-cyan-500 ml-3">
+                            <i class="fas fa-archive"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">ארכיון חכם</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">ארכיון חכם</h3>
                     <p class="text-gray-700 mb-4">
                         יוצר קטעי וידאו של אירועים רלוונטיים במקום לדרוש ממך לחפש בשעות של צילומים.
                     </p>
@@ -1244,15 +1311,15 @@
                                                 0:18
                                             </div>
                                         </div>
-                                        <div class="flex space-x-2">
-                                            <button class="flex-1 bg-red-500 text-white text-sm py-2 px-3 rounded-lg">
-                                                <i class="fas fa-exclamation-circle ml-1"></i> Emergency
+                                        <div class="flex">
+                                            <button class="flex-1 bg-red-500 text-white text-sm py-2 px-3 ml-2 rounded-lg">
+                                                <i class="fas fa-exclamation-circle mr-1"></i> Emergency
                                             </button>
-                                            <button class="flex-1 bg-blue-500 text-white text-sm py-2 px-3 rounded-lg">
-                                                <i class="fas fa-user-check ml-1"></i> Acknowledge
+                                            <button class="flex-1 bg-blue-500 text-white text-sm py-2 px-3 ml-2 rounded-lg">
+                                                <i class="fas fa-user-check mr-1"></i> Acknowledge
                                             </button>
                                             <button class="flex-1 bg-gray-200 text-gray-700 text-sm py-2 px-3 rounded-lg">
-                                                <i class="fas fa-times ml-1"></i> Dismiss
+                                                <i class="fas fa-times mr-1"></i> Dismiss
                                             </button>
                                         </div>
                                     </div>
@@ -1624,20 +1691,20 @@
 
             <div class="flex flex-col md:flex-row">
                 <div class="md:w-1/2 mb-10 md:mb-0 md:pl-8 slide-in">
-                    <form id="contactForm" class="bg-white bg-opacity-5 backdrop-blur-sm rounded-lg p-8">
+                    <form id="contactForm" class="bg-white bg-opacity-5 backdrop-blur-sm rounded-lg p-8" action="https://formsubmit.co/matan@pixelligence-ai.com" method="POST">
                         <div class="mb-6">
                             <label class="block text-gray-300 mb-2" for="name">שם מלא</label>
-                            <input type="text" id="name" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                            <input type="text" id="name" name="name" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
                             <span id="nameError" class="text-red-500 text-xs hidden">נדרש למלא שם.</span>
                         </div>
                         <div class="mb-6">
                             <label class="block text-gray-300 mb-2" for="email">כתובת אימייל</label>
-                            <input type="email" id="email" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                            <input type="email" name="email" id="email" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
                             <span id="emailError" class="text-red-500 text-xs hidden">נדרש אימייל חוקי.</span>
                         </div>
                         <div class="mb-6">
                             <label class="block text-gray-300 mb-2" for="message">הודעה</label>
-                            <textarea id="message" rows="5" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required></textarea>
+                            <textarea id="message" name="message" rows="5" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required></textarea>
                             <span id="messageError" class="text-red-500 text-xs hidden">ההודעה לא יכולה להיות ריקה.</span>
                         </div>
                         <button id="sendMessageBtn" type="submit" class="w-full btn-primary" disabled>
@@ -1751,30 +1818,41 @@
 
         // Feature tabs functionality
         const featureTabs = document.querySelectorAll('.feature-tab');
-        
+
         featureTabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 // Don't process clicks on future tabs
                 if (tab.id && tab.id.startsWith('future-')) {
+                    // Optionally add some visual feedback that it's not clickable yet
                     return;
                 }
-                
+
                 // Remove active class from all tabs
                 featureTabs.forEach(t => t.classList.remove('active'));
-                
+
                 // Add active class to clicked tab
                 tab.classList.add('active');
-                
+
                 // Hide all content
                 const contents = document.querySelectorAll('.feature-content');
                 contents.forEach(content => content.classList.remove('active'));
-                
+
                 // Show related content
                 const tabId = tab.getAttribute('data-tab');
                 if (tabId) {
-                    const content = document.getElementById(tabId);
-                    if (content) {
-                        content.classList.add('active');
+                    const contentElement = document.getElementById(tabId);
+                    if (contentElement) {
+                        contentElement.classList.add('active');
+                    }
+                    // Smooth scroll to the capabilities section
+                    const capabilitiesSection = document.getElementById('capabilities');
+                    if (capabilitiesSection) {
+                        const navHeight = document.querySelector('nav').offsetHeight || 0;
+                        const offsetTop = capabilitiesSection.offsetTop - navHeight - 20; // Adjust offset as needed
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
                     }
                 }
             });
@@ -1928,9 +2006,7 @@
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
         
-      
-
-        // Validate the contact form fields
+        // Validate form fields
         function validateForm() {
             let valid = true;
             const nameInput = document.getElementById('name');
@@ -1967,12 +2043,18 @@
         document.getElementById('email').addEventListener('input', validateForm);
         document.getElementById('message').addEventListener('input', validateForm);
         
-        // Enhanced contact form submission with rate-limiting and validation
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
+        // Contact form submission to Firebase Cloud Function
+        document.getElementById('contactForm').addEventListener('submit', async function(event) {
             event.preventDefault();
             if (!validateForm()) {
                 return;
             }
+            
+            // Get form data
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const text = document.getElementById('message').value.trim();
+            const submitButton = document.getElementById('sendMessageBtn');
             
             // Rate limiting: 5 emails per minute, 20 per hour
             const now = Date.now();
@@ -1985,26 +2067,55 @@
             hourCounts = hourCounts.filter(time => now - time < hour);
             
             if (minuteCounts.length >= 5) {
-                alert('Too many emails sent in the last minute. Please wait a moment.');
+                alert('נשלחו יותר מדי הודעות בדקה האחרונה. אנא המתן מעט.');
                 return;
             }
             if (hourCounts.length >= 20) {
-                alert('Too many emails sent in the last hour. Please try again later.');
+                alert('נשלחו יותר מדי הודעות בשעה האחרונה. אנא נסה שוב מאוחר יותר.');
                 return;
             }
             
-            minuteCounts.push(now);
-            hourCounts.push(now);
-            localStorage.setItem('minuteCounts', JSON.stringify(minuteCounts));
-            localStorage.setItem('hourCounts', JSON.stringify(hourCounts));
+            // Show loading state
+            submitButton.disabled = true;
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-circle-notch fa-spin ml-2"></i> שולח...';
             
-            // Construct email body and open user's mail client via mailto link
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-            const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0AMessage: ${message}`;
-            const mailtoLink = `mailto:matanpixelligence@gmail.com?subject=Contact Form Submission&body=${body}`;
-            window.location.href = mailtoLink;
+            try {
+                // Send data to Firebase Cloud Function
+                const response = await fetch('https://formsubmit.co/091cf03d05c2786cd7270922d7cb7fd1', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, text })
+                });
+                
+                if (response.ok) {
+                    // Update rate limiting counters on success
+                    minuteCounts.push(now);
+                    hourCounts.push(now);
+                    localStorage.setItem('minuteCounts', JSON.stringify(minuteCounts));
+                    localStorage.setItem('hourCounts', JSON.stringify(hourCounts));
+                    
+                    // Show success message
+                    alert('הודעתך נשלחה בהצלחה! נחזור אליך בהקדם.');
+                    
+                    // Reset form
+                    document.getElementById('contactForm').reset();
+                } else {
+                    // Show error message
+                    const errorData = await response.text();
+                    console.error('Error sending email:', errorData);
+                    alert('אירעה שגיאה בשליחת ההודעה. אנא נסה שוב מאוחר יותר.');
+                }
+            } catch (error) {
+                console.error('Error sending email:', error);
+                alert('אירעה שגיאה בשליחת ההודעה. אנא נסה שוב מאוחר יותר.');
+            } finally {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+            }
         });
     </script>
 </body>
