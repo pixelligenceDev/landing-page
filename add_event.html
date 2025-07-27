@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Event Management Interface</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #131c36;
+            --secondary-bg: #1d2647;
+            --form-bg: #2a3154;
+            --form-hover: #343b68;
+            --accent-color: #5964c5;
+            --accent-hover: #6b76d6;
+            --text-primary: #ffffff;
+            --text-secondary: #b4b8d8;
+            --text-muted: #8891b7;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #e86273;
+            --danger-hover: #f27485;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, var(--primary-bg), var(--secondary-bg));
+            color: var(--text-primary);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .app-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .form-container {
+            background: linear-gradient(160deg, var(--form-bg), #232841);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+        }
+        
+        .form-header {
+            background: linear-gradient(90deg, var(--accent-color), #414db3);
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+        }
+        
+        .form-header::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), transparent);
+        }
+        
+        .form-content {
+            padding: 2rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: rgba(30, 35, 69, 0.6);
+            border: 1px solid rgba(86, 97, 179, 0.3);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(89, 100, 197, 0.2);
+            background-color: rgba(30, 35, 69, 0.8);
+        }
+        
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .form-select {
+            appearance: none;
+            padding-right: 2.5rem;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238891b7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-position: right 1rem center;
+            background-repeat: no-repeat;
+            background-size: 1em;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.5rem 0;
+        }
+        
+        .checkbox-input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        
+        .checkbox-custom {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            background-color: rgba(30, 35, 69, 0.6);
+            border: 1px solid rgba(86, 97, 179, 0.3);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .checkbox-input:checked ~ .checkbox-custom {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .checkbox-custom:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .checkbox-input:checked ~ .checkbox-custom:after {
+            display: block;
+        }
+        
+        .checkbox-input:focus ~ .checkbox-custom {
+            box-shadow: 0 0 0 3px rgba(89, 100, 197, 0.2);
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .radio-container {
+            position: relative;
+        }
+        
+        .radio-input {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .radio-label {
+            display: block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            background-color: rgba(30, 35, 69, 0.6);
+            border: 1px solid rgba(86, 97, 179, 0.3);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .radio-input:checked + .radio-label {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        
+        .radio-input:focus + .radio-label {
+            box-shadow: 0 0 0 3px rgba(89, 100, 197, 0.2);
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+            gap: 1rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            min-width: 120px;
+        }
+        
+        .btn:focus {
+            box-shadow: 0 0 0 3px rgba(89, 100, 197, 0.3);
+        }
+        
+        .btn-cancel {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-cancel:hover {
+            background-color: var(--danger-hover);
+        }
+        
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            background-color: var(--accent-hover);
+        }
+        
+        .btn-icon {
+            margin-right: 0.5rem;
+        }
+        
+        .status-bar {
+            background: rgba(23, 29, 60, 0.95);
+            color: var(--text-secondary);
+            border-radius: 8px;
+            margin-top: 2rem;
+            overflow: hidden;
+        }
+        
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+        
+        .status-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: 150px;
+        }
+        
+        .status-column {
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .status-column:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 10%;
+            right: 0;
+            height: 80%;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .status-label {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        
+        .indicator-open {
+            background-color: var(--accent-color);
+        }
+        
+        .indicator-assigned {
+            background-color: var(--warning);
+        }
+        
+        .indicator-closed {
+            background-color: var(--success);
+        }
+        
+        .status-count {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+        
+        .required-field::after {
+            content: " *";
+            color: var(--danger);
+        }
+        
+        .upload-area {
+            border: 2px dashed rgba(86, 97, 179, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: rgba(30, 35, 69, 0.3);
+        }
+        
+        .upload-area:hover {
+            background-color: rgba(30, 35, 69, 0.5);
+            border-color: rgba(86, 97, 179, 0.5);
+        }
+        
+        .upload-icon {
+            font-size: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        
+        .field-help {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+        
+        /* Animation for the form */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animated {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .animated-delay-1 {
+            animation-delay: 0.1s;
+        }
+        
+        .animated-delay-2 {
+            animation-delay: 0.2s;
+        }
+        
+        .animated-delay-3 {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="app-container">
+        <div class="form-container animated">
+            <div class="form-header">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-plus-circle mr-3"></i>
+                    Create New Event
+                </h2>
+                <p class="text-sm opacity-80 mt-1">Fill in the details below to create a new event record</p>
+            </div>
+            <div class="form-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Left column -->
+                    <div class="animated animated-delay-1">
+                        <div class="input-group">
+                            <label for="eventType" class="form-label required-field">Event Type</label>
+                            <select id="eventType" class="form-input form-select">
+                                <option value="" disabled selected>Select event type...</option>
+                                <option value="line-crossing">Line Crossing</option>
+                                <option value="motion-detected">Motion Detected</option>
+                                <option value="object-abandoned">Object Abandoned</option>
+                                <option value="person-detected">Person Detected</option>
+                                <option value="vehicle-detected">Vehicle Detected</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="eventLocation" class="form-label required-field">Event Location</label>
+                            <div class="relative">
+                                <input type="text" id="eventLocation" class="form-input" placeholder="Search or enter location...">
+                                <i class="fas fa-map-marker-alt absolute right-3 top-3 text-text-muted"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="eventDate" class="form-label required-field">Date & Time</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="relative">
+                                    <input type="date" id="eventDate" class="form-input">
+                                </div>
+                                <div class="relative">
+                                    <input type="time" id="eventTime" class="form-input">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="eventSeverity" class="form-label">Severity Level</label>
+                            <div class="flex items-center space-x-1">
+                                <input type="range" id="eventSeverity" min="1" max="5" value="3" class="w-full h-2 rounded-lg appearance-none bg-gray-700 outline-none">
+                                <span class="text-sm ml-2 w-5 text-center" id="severityValue">3</span>
+                            </div>
+                            <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                <span>Low</span>
+                                <span>High</span>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="form-label">Event Media</label>
+                            <div class="upload-area" id="mediaDropzone">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <p>Drag & drop files or <span class="text-accent-color">browse</span></p>
+                                <p class="text-xs text-text-muted mt-1">Supports: JPG, PNG, MP4 (Max: 20MB)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right column -->
+                    <div class="animated animated-delay-2">
+                        <div class="input-group">
+                            <label for="eventNotes" class="form-label">Notes & Description</label>
+                            <textarea id="eventNotes" class="form-input form-textarea" placeholder="Enter detailed description of what happened..."></textarea>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="form-label">Reporting Options</label>
+                            <div class="space-y-2">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" class="checkbox-input" id="controlReporting">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Control Room Reporting</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" class="checkbox-input" id="autoAssign">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Auto-assign to available staff</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" class="checkbox-input" id="priorityEvent">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Mark as priority event</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="reporterName" class="form-label">Reporter Information</label>
+                            <input type="text" id="reporterName" class="form-input mb-3" placeholder="Enter reporter name">
+                            <input type="tel" id="reporterPhone" class="form-input" placeholder="Enter reporter phone">
+                            <p class="field-help">This information will be kept confidential</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="form-label">Reporter Gender</label>
+                            <div class="radio-group">
+                                <div class="radio-container">
+                                    <input type="radio" id="male" name="gender" class="radio-input" value="male">
+                                    <label for="male" class="radio-label">Male</label>
+                                </div>
+                                <div class="radio-container">
+                                    <input type="radio" id="female" name="gender" class="radio-input" value="female">
+                                    <label for="female" class="radio-label">Female</label>
+                                </div>
+                                <div class="radio-container">
+                                    <input type="radio" id="other" name="gender" class="radio-input" value="other">
+                                    <label for="other" class="radio-label">Other</label>
+                                </div>
+                                <div class="radio-container">
+                                    <input type="radio" id="notSpecified" name="gender" class="radio-input" value="notSpecified">
+                                    <label for="notSpecified" class="radio-label">Not Specified</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions animated animated-delay-3">
+                    <button class="btn btn-cancel">
+                        <i class="fas fa-times btn-icon"></i>
+                        Cancel
+                    </button>
+                    <button class="btn btn-submit">
+                        <i class="fas fa-check btn-icon"></i>
+                        Open Event
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status-bar animated animated-delay-3">
+            <div class="status-header">
+                <h3 class="text-lg font-medium">Event Status Dashboard</h3>
+                <div class="text-sm">
+                    <i class="fas fa-sync-alt mr-1"></i>
+                    Last updated: Just now
+                </div>
+            </div>
+            <div class="status-content">
+                <div class="status-column">
+                    <div class="status-label">
+                        <span class="status-indicator indicator-open"></span>
+                        Open Events
+                        <span class="status-count">0</span>
+                    </div>
+                    <div class="text-center text-text-muted text-sm py-8">
+                        <i class="fas fa-inbox text-3xl mb-3 opacity-40 block"></i>
+                        No open events
+                    </div>
+                </div>
+                <div class="status-column">
+                    <div class="status-label">
+                        <span class="status-indicator indicator-assigned"></span>
+                        Assigned Events
+                        <span class="status-count">0</span>
+                    </div>
+                    <div class="text-center text-text-muted text-sm py-8">
+                        <i class="fas fa-user-check text-3xl mb-3 opacity-40 block"></i>
+                        No assigned events
+                    </div>
+                </div>
+                <div class="status-column">
+                    <div class="status-label">
+                        <span class="status-indicator indicator-closed"></span>
+                        Closed Events
+                        <span class="status-count">0</span>
+                    </div>
+                    <div class="text-center text-text-muted text-sm py-8">
+                        <i class="fas fa-check-circle text-3xl mb-3 opacity-40 block"></i>
+                        No closed events
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Severity slider
+            const severitySlider = document.getElementById('eventSeverity');
+            const severityValue = document.getElementById('severityValue');
+            
+            if (severitySlider && severityValue) {
+                severitySlider.addEventListener('input', function() {
+                    severityValue.textContent = this.value;
+                });
+            }
+            
+            // Form submission
+            const submitButton = document.querySelector('.btn-submit');
+            const cancelButton = document.querySelector('.btn-cancel');
+            
+            if (submitButton) {
+                submitButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Validate required fields
+                    const eventType = document.getElementById('eventType').value;
+                    const eventLocation = document.getElementById('eventLocation').value;
+                    const eventDate = document.getElementById('eventDate').value;
+                    
+                    if (!eventType || !eventLocation || !eventDate) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Simulate event creation
+                    const openEvents = document.querySelector('.status-column:first-child .status-count');
+                    if (openEvents) {
+                        const currentCount = parseInt(openEvents.textContent) || 0;
+                        openEvents.textContent = currentCount + 1;
+                        
+                        // Replace empty state with new event item
+                        const openColumn = document.querySelector('.status-column:first-child');
+                        const emptyState = openColumn.querySelector('.text-center');
+                        
+                        if (emptyState) {
+                            const newEvent = document.createElement('div');
+                            newEvent.className = 'bg-opacity-20 bg-blue-900 p-3 rounded-lg mt-2';
+                            newEvent.innerHTML = `
+                                <div class="flex justify-between text-sm">
+                                    <div><i class="fas fa-circle text-xs text-blue-400 mr-1"></i> ${eventType || 'New Event'}</div>
+                                    <div class="text-xs opacity-70">Just now</div>
+                                </div>
+                                <div class="text-xs mt-1 opacity-70">${eventLocation || 'Unknown location'}</div>
+                            `;
+                            
+                            openColumn.replaceChild(newEvent, emptyState);
+                        }
+                        
+                        // Reset form
+                        document.querySelector('form')?.reset();
+                        alert('Event created successfully!');
+                    }
+                });
+            }
+            
+            if (cancelButton) {
+                cancelButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (confirm('Are you sure you want to cancel? All entered data will be lost.')) {
+                        document.querySelector('form')?.reset();
+                    }
+                });
+            }
+            
+            // Simulated drag & drop functionality
+            const dropzone = document.getElementById('mediaDropzone');
+            
+            if (dropzone) {
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    dropzone.addEventListener(eventName, preventDefaults, false);
+                });
+                
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    dropzone.addEventListener(eventName, highlight, false);
+                });
+                
+                ['dragleave', 'drop'].forEach(eventName => {
+                    dropzone.addEventListener(eventName, unhighlight, false);
+                });
+                
+                function highlight() {
+                    dropzone.classList.add('bg-opacity-50');
+                    dropzone.style.borderColor = 'rgba(89, 100, 197, 0.8)';
+                }
+                
+                function unhighlight() {
+                    dropzone.classList.remove('bg-opacity-50');
+                    dropzone.style.borderColor = 'rgba(86, 97, 179, 0.3)';
+                }
+                
+                dropzone.addEventListener('click', function() {
+                    alert('File upload functionality would be implemented here.');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

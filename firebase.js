@@ -7,7 +7,13 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-// secret google token kept in other place
+  apiKey: "AIzaSyBxctCKWUXPvDtys8FNYo2yRDOALaCW5xI",
+  authDomain: "pixelligence-landing-page.firebaseapp.com",
+  projectId: "pixelligence-landing-page",
+  storageBucket: "pixelligence-landing-page.firebasestorage.app",
+  messagingSenderId: "1083038698152",
+  appId: "1:1083038698152:web:43f78ecc8020000ea9109d",
+  measurementId: "G-QCE2MN8TSL"
 };
 
 // Initialize Firebase
